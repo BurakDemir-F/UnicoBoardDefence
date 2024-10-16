@@ -8,5 +8,5 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableData/Level", fileName = "Level", order = 0)]
 public class LevelSO : ScriptableObject
 {
-    private List<LevelData> _levels;
+    private LevelData _levels;
 }

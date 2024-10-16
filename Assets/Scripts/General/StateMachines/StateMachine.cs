@@ -21,7 +21,7 @@ namespace General.StateMachines
             foreach (var state in _states)
             {
                 state.Construct();
-                state.OnStateConditionMet += OnStateConditionMet;
+                state.ConditionMet += OnStateConditionMet;
             }
         }
 
@@ -30,7 +30,7 @@ namespace General.StateMachines
             foreach (var state in _states)
             {
                 state.Destruct();
-                state.OnStateConditionMet -= OnStateConditionMet;
+                state.ConditionMet -= OnStateConditionMet;
             }
         }
         

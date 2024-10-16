@@ -1,11 +1,25 @@
-﻿namespace Controllers
-{
-    public class GameController
-    {
-    }
+﻿using GamePlay.Map;
+using UnityEngine;
+using Utilities;
 
-    public interface ILevelController
+namespace Controllers
+{
+    public class GameController : MonoBehaviour
     {
-        ILevelData GetLevel();
+        private ILevelDataProvider _dataProvider;
+        private IMapBuilder _mapBuilder;
+
+        private void Start()
+        {
+            var levelData = _dataProvider.GetLevel();
+            var mapData = _dataProvider.GetMapData();
+            _mapBuilder.BuildMap(mapData, ()=> {"on map build".PrintColored(Color.white);});
+        }
+    }
+    
+    public interface IUserDataController
+    {
+        int GetUserLevel();
+        void SetUserLevel();
     }
 }
