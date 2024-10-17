@@ -3,7 +3,7 @@
 
 namespace General.StateMachines
 {
-    public interface ITransition : IConstructionProvider
+    public interface ITransition
     {
         void MakeTransition(Action OnTransitionEnd);
         IState FromState { get; set; }

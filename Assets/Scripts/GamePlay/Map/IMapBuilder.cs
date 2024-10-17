@@ -4,7 +4,7 @@ using General;
 
 namespace GamePlay.Map
 {
-    public interface IMapBuilder : IConstructionProvider
+    public interface IMapBuilder
     {
         void BuildMap(IMapData mapData, Action<IMap> onMapBuilt);
     }

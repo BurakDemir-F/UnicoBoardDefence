@@ -13,25 +13,25 @@ MonoBehaviour:
   m_Name: PoolConfig
   m_EditorClassIdentifier: 
   PoolConfig:
-  - PoolObjectPrefab: {fileID: 3778403292208547580, guid: 34ec1ea4bf3f9994288b79c329c03933,
+  - PoolObjectPrefab: {fileID: 2881671843651318666, guid: e97ade9fbdc315a428a08a6c0ba82313,
       type: 3}
     DefaultCapacity: 16
     PoolKey: DefenderArea
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
-  - PoolObjectPrefab: {fileID: 2667012674928758299, guid: 434aa118f176e1a41971286b0777253e,
+  - PoolObjectPrefab: {fileID: 5343899031544981268, guid: fe1c9ed9bbb5f7440a48bf62101bf64d,
       type: 3}
     DefaultCapacity: 16
     PoolKey: EmptyArea
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
-  - PoolObjectPrefab: {fileID: 8603016400063143916, guid: 2eb3a3505dae0db49b839ad250f35d94,
+  - PoolObjectPrefab: {fileID: 3458515224673249994, guid: 9f8d7c8f6f4609144bb5b86dcd00f3ce,
       type: 3}
     DefaultCapacity: 4
     PoolKey: SpawnArea
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
-  - PoolObjectPrefab: {fileID: 1923085116353600722, guid: aa7fd517dfb0a3c46bf71a2402769e14,
+  - PoolObjectPrefab: {fileID: 6999479256227525263, guid: 6420c2f03d01a2741ac787ecd1413cae,
       type: 3}
     DefaultCapacity: 4
     PoolKey: LooseArea

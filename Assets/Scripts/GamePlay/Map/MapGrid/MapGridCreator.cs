@@ -21,15 +21,10 @@ namespace GamePlay.Map.MapGrid
         private IMapAnimator _mapAnimator;
         
         private Action<IMap> _onMapCreated;
-        public void Construct()
+        public void Awake()
         {
             _poolCollection = GetComponent<IPoolCollection>();
             _mapAnimator = GetComponent<IMapAnimator>();
-        }
-
-        public void Destruct()
-        {
-            
         }
 
         public void CreateMapGrid(IMapData mapData,Action<IMap> onMapCreated)
@@ -80,10 +75,10 @@ namespace GamePlay.Map.MapGrid
                 looseAreas.Add(area);
             }
             
+            areas.AddRange(looseAreas);
             areas.AddRange(defenderAreas);
             areas.AddRange(emptyAreas);
             areas.AddRange(spawnAreas);
-            areas.AddRange(looseAreas);
             var cells = areas.Select(area => area as IGridCell).ToList();
             _grid = new Grid(cells, mapXDimension, mapYDimension);
             _map.InitializeMap(_grid,spawnAreas,emptyAreas,defenderAreas,looseAreas);
@@ -96,7 +91,7 @@ namespace GamePlay.Map.MapGrid
         }
     }
 
-    public interface IMapGridCreator : IConstructionProvider
+    public interface IMapGridCreator
     {
         void CreateMapGrid(IMapData mapData, Action<IMap> onMapCreated);
     }

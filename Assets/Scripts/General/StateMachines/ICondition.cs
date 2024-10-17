@@ -2,7 +2,7 @@
 
 namespace General.StateMachines
 {
-    public interface ICondition : IConstructionProvider
+    public interface ICondition
     {
         bool IsConditionMet { get; }
         event Action OnConditionMet;

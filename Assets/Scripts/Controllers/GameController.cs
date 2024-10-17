@@ -22,6 +22,7 @@ namespace Controllers
             var mapData = _dataProvider.GetMapData();
             _mapBuilder.BuildMap(mapData, (map)=> {"on map build".PrintColored(Color.white);});
         }
+
     }
     
     public interface IUserDataController

@@ -8,14 +8,9 @@ namespace GamePlay.Map
     {
         private IMapGridCreator _mapGridCreator;
 
-        public void Construct()
+        public void Awake()
         {
             _mapGridCreator = GetComponent<IMapGridCreator>();
-        }
-
-        public void Destruct()
-        {
-            
         }
 
         public void BuildMap(IMapData mapData,Action<IMap> onMapBuilt)

@@ -48,6 +48,6 @@ MonoBehaviour:
     _emptyAreaPoolKey: EmptyArea
     _spawnAreaPoolKey: SpawnArea
     _playerLooseAreaPoolKey: LooseArea
-    _cellSize: 1
-    _padding: 1
+    _cellSize: 2
+    _padding: 0
     _gridCreateInterval: 0.1

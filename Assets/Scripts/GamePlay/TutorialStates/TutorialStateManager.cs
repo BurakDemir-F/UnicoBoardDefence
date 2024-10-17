@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GamePlay.TutorialStates
 {
-    public class TutorialStateManager : MonoBehaviour,IConstructionProvider
+    public class TutorialStateManager : MonoBehaviour
     {
         [SerializeField] private List<GameState> _states;
         [SerializeField] private GameState _startState;

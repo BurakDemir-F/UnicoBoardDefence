@@ -2,8 +2,10 @@
 
 namespace General.StateMachines
 {
-    public interface IState : IConstructionProvider
+    public interface IState
     {
+        void Construct();
+        void Destruct();
         ITransition Transition { get; }
         StateData StateData {get;}
         ICondition Condition { get; }

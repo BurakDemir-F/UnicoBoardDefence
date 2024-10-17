@@ -8,5 +8,6 @@ using UnityEngine;
 [CreateAssetMenu(menuName = "ScriptableData/Level", fileName = "Level", order = 0)]
 public class LevelSO : ScriptableObject
 {
-    private LevelData _levels;
+    [SerializeField] private LevelData _levelData;
+    public LevelData LevelData => _levelData;
 }

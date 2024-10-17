@@ -12,8 +12,8 @@ public class LevelData : ILevelData,IMapData
     [SerializeField] private List<LevelQuantity> _levelQuantity;
     [SerializeField] private Dimension2D _defenderDimension;
     [SerializeField] private Dimension2D _emptyDimension;
-    [SerializeField] private string _placeablePoolKey;
-    [SerializeField] private string _nonPlaceablePoolKey;
+    [SerializeField] private string _defenderAreaPoolKey;
+    [SerializeField] private string _emptyAreaPoolKey;
     [SerializeField] private string _spawnAreaPoolKey;
     [SerializeField] private string _playerLooseAreaPoolKey;
     [SerializeField] private float _cellSize;
@@ -23,8 +23,8 @@ public class LevelData : ILevelData,IMapData
     public List<LevelQuantity> LevelQuantities => _levelQuantity;
     public Dimension2D DefenderDimension => _defenderDimension;
     public Dimension2D EmptyDimension => _emptyDimension;
-    public string DefenderAreaKey => _placeablePoolKey;
-    public string EmptyAreaKey => _nonPlaceablePoolKey;
+    public string DefenderAreaKey => _defenderAreaPoolKey;
+    public string EmptyAreaKey => _emptyAreaPoolKey;
     public float GridCreateInterval => _gridCreateInterval;
 
     public string SpawnAreaKey => _spawnAreaPoolKey;

@@ -2,8 +2,10 @@
 
 namespace General.StateMachines
 {
-    public interface IStateMachine : IConstructionProvider
+    public interface IStateMachine
     {
+        void Construct();
+        void Destruct();
         void SetStates(IEnumerable<IState> states);
         void SetStartState(IState startState);
         bool AddState(IState state);

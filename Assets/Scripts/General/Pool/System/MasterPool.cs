@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using General.Pool.Data;
 using UnityEngine;
 
@@ -8,8 +9,14 @@ namespace General.Pool.System
     public class MasterPool : MonoBehaviour, IPoolCollection
     {
         [SerializeField] private PoolConfigSo _config;
+        [SerializeField] private Transform _poolRoot;
         private Dictionary<string, IPool> _poolDict;
         [SerializeField]private bool _isInitialized;
+
+        private void Awake()
+        {
+            CheckAndInitialize(_poolRoot);
+        }
 
         public void InitializePool(List<PoolConfig> config,Transform transform)
         {

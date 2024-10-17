@@ -16,8 +16,8 @@ namespace General.GridSystem
             var y = positionOnGrid.y;
             var cellSizeOffset = GetCellSizeOffset();
             
-            return new Vector3(_originPosition.x + (x * _cellSize) + cellSizeOffset,
-                _originPosition.y , _originPosition.z + (y * _cellSize) + cellSizeOffset);
+            return new Vector3(_originPosition.x + (x * (_cellSize + _padding)) + cellSizeOffset,
+                _originPosition.y , _originPosition.z + (y * (_cellSize + _padding)) + cellSizeOffset);
         }
     }
 }
