@@ -2,11 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Utilities;
 
 namespace General.GridSystem
 {
-    public class Grid : IEnumerable<IGridCell>
+    public class Grid : IGrid
     {
         protected IGridCell[,] _items;
         protected int _xDimension;
@@ -23,7 +22,10 @@ namespace General.GridSystem
             {
                 for (int j = 0; j < yDimension; j++)
                 {
-                    _items[i, j] = cells[GetIndex(_xDimension, i, j)];
+                    var cell = cells[GetIndex(_xDimension, i, j)];
+                    _items[i, j] = cell;
+                    cell.XPos = i;
+                    cell.YPos = j;
                 }
             }
         }

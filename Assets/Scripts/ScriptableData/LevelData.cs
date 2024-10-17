@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Controllers;
 using Defenders;
 using Enemies;
 using GamePlay.Map;
@@ -11,18 +10,27 @@ using UnityEngine.Serialization;
 public class LevelData : ILevelData,IMapData
 {
     [SerializeField] private List<LevelQuantity> _levelQuantity;
-    [SerializeField] private Vector2Int _placeableSize;
-    [SerializeField] private Vector2Int _nonPlaceableSize;
+    [SerializeField] private Dimension2D _defenderDimension;
+    [SerializeField] private Dimension2D _emptyDimension;
     [SerializeField] private string _placeablePoolKey;
     [SerializeField] private string _nonPlaceablePoolKey;
+    [SerializeField] private string _spawnAreaPoolKey;
+    [SerializeField] private string _playerLooseAreaPoolKey;
+    [SerializeField] private float _cellSize;
+    [SerializeField] private float _padding;
     [SerializeField] private float _gridCreateInterval;
     
     public List<LevelQuantity> LevelQuantities => _levelQuantity;
-    public Vector2Int PlaceableSize => _placeableSize;
-    public Vector2Int NonPlaceableSize => _nonPlaceableSize;
-    public string PlaceablePoolKey => _placeablePoolKey;
-    public string NonPlaceablePoolKey => _nonPlaceablePoolKey;
+    public Dimension2D DefenderDimension => _defenderDimension;
+    public Dimension2D EmptyDimension => _emptyDimension;
+    public string DefenderAreaKey => _placeablePoolKey;
+    public string EmptyAreaKey => _nonPlaceablePoolKey;
     public float GridCreateInterval => _gridCreateInterval;
+
+    public string SpawnAreaKey => _spawnAreaPoolKey;
+    public string PlayerLooseAreaKey => _playerLooseAreaPoolKey;
+    public float CellSize => _cellSize;
+    public float Padding => _padding;
 }
 
 public interface ILevelData

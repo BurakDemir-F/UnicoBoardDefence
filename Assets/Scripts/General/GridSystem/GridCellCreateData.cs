@@ -4,13 +4,13 @@ namespace General.GridSystem
 {
     public class GridCellCreateData
     {
-        private Dimension _dimension;
+        private Dimension2D _dimension2D;
         private Func<int, int, IGridCell> _createMethod;
 
-        public Dimension Dimension
+        public Dimension2D Dimension2D
         {
-            get => _dimension;
-            set => _dimension = value;
+            get => _dimension2D;
+            set => _dimension2D = value;
         }
         
         public Func<int, int, IGridCell> InstantiateMethod
@@ -19,9 +19,9 @@ namespace General.GridSystem
             set => _createMethod = value;
         }
 
-        public GridCellCreateData(Dimension dimension, Func<int, int, IGridCell> createMethod)
+        public GridCellCreateData(Dimension2D dimension2D, Func<int, int, IGridCell> createMethod)
         {
-            _dimension = dimension;
+            _dimension2D = dimension2D;
             _createMethod = createMethod;
         }
     }

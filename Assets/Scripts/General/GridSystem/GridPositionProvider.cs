@@ -10,22 +10,24 @@ namespace General.GridSystem
         protected Vector3 _originPosition;
         protected float _cellSize;
         protected float _padding;
-        protected Axis _axis;
 
-        protected GridPositionProvider(Transform originTransform, float cellSize, Transform root,
-            float padding,Axis axis)
+        protected GridPositionProvider(Transform originTransform, float cellSize, float padding)
         {
             _originTransform = originTransform;
             _originPosition = _originTransform.position;
             _cellSize = cellSize;
             _padding = padding;
-            _axis = axis;
-            
-            if (_axis == Axis.None)
-                "Axis can not be None!".PrintColored(Color.red);
         }
 
         public abstract Vector3 GetWorldPosition(Vector2Int positionOnGrid);
+
+        public Vector3 GetWorldPosition(int index, int xDimension)
+        {
+            var y = index / xDimension;
+            var x = index % xDimension;
+
+            return GetWorldPosition(new Vector2Int(x, y));
+        }
         
         protected float GetCellSizeOffset()
         {

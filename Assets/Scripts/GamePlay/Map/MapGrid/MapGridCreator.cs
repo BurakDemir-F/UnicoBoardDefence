@@ -1,25 +1,30 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using General;
 using General.GridSystem;
 using General.Pool.System;
 using UnityEngine;
+using Grid = General.GridSystem.Grid;
 
 namespace GamePlay.Map.MapGrid
 {
-    public class MapGridCreator : MonoBehaviour,IConstructionProvider
+    public class MapGridCreator : MonoBehaviour,IMapGridCreator
     {
         [SerializeField] private Transform _mapRoot;
+        [SerializeField] private MapSO _map;
 
-        private List<IGridCell> _cells;
         private IPoolCollection _poolCollection;
-        private YieldInstruction _intervalWait;
-        private Action<List<IGridCell>> _onGridCreated;
+        private Grid _grid;
+        private GridPositionProvider _positionProvider;
+        private Dimension2D _dimension2D;
+        private IMapAnimator _mapAnimator;
+        
+        private Action<IMap> _onMapCreated;
         public void Construct()
         {
-            _cells = new List<IGridCell>();
             _poolCollection = GetComponent<IPoolCollection>();
+            _mapAnimator = GetComponent<IMapAnimator>();
         }
 
         public void Destruct()
@@ -27,39 +32,72 @@ namespace GamePlay.Map.MapGrid
             
         }
 
-        public void CreateMapGrid(IMapData mapData,Action<List<IGridCell>> onGridCreated)
+        public void CreateMapGrid(IMapData mapData,Action<IMap> onMapCreated)
         {
-            _onGridCreated = onGridCreated;
-            _intervalWait = new WaitForSeconds(mapData.GridCreateInterval);
-            StartCoroutine(CreateMapGridCor(mapData));
+            _onMapCreated = onMapCreated;
+            _positionProvider =
+                new BottomLeftGridPositionProvider(_mapRoot, mapData.CellSize, mapData.Padding);
+            CreateAreas(mapData);
         }
 
-        private IEnumerator CreateMapGridCor(IMapData mapData)
+        private void CreateAreas(IMapData mapData)
         {
-            var nonPlaceableSize = mapData.NonPlaceableSize;
-            var nonPlaceableKey = mapData.NonPlaceablePoolKey;
-            var placeableKey = mapData.PlaceablePoolKey;
-            var count = nonPlaceableSize.x * nonPlaceableSize.y;
-
-            for (var i = 0; i < count; i++)
-            {
-                var cell = _poolCollection.Get<EmptyArea>(nonPlaceableKey);
-                _cells.Add(cell);
-                yield return _intervalWait;
-            }
-
-            var placeableSize = mapData.PlaceableSize;
-            count = placeableSize.x * placeableSize.y;
+            var emptyAreaPoolKey = mapData.EmptyAreaKey;
+            var defenderAreaPoolKey = mapData.DefenderAreaKey;
+            var spawnAreaPoolKey = mapData.SpawnAreaKey;
+            var playerLooseAreaPoolKey = mapData.PlayerLooseAreaKey;
+            var mapXDimension = mapData.DefenderDimension.XLength;
+            var mapYDimension = mapData.DefenderDimension.YLength + mapData.EmptyDimension.YLength + 2;//(2)spawn area and player loose area add height to the map
             
-            for (var i = 0; i < count; i++)
+            _dimension2D = new Dimension2D(mapXDimension, mapYDimension);
+            var areas = new List<AreaBase>(_dimension2D.Size);
+            var defenderAreas = new List<DefenderArea>(mapData.DefenderDimension.Size);
+            var emptyAreas = new List<EmptyArea>(mapData.EmptyDimension.Size);
+            var looseAreas = new List<PlayerLooseArea>(mapXDimension);
+            var spawnAreas = new List<SpawnArea>(mapXDimension);
+            
+            for (int i = 0; i < mapXDimension; i++)
             {
-                var cell = _poolCollection.Get<DefenderBaseArea>(placeableKey);
-                _cells.Add(cell);
-                yield return _intervalWait;
+                var area = _poolCollection.Get<SpawnArea>(spawnAreaPoolKey);
+                spawnAreas.Add(area);
             }
             
-            _onGridCreated?.Invoke(_cells);
+            for (var i = 0; i < mapData.EmptyDimension.Size; i++)
+            {
+                var area = _poolCollection.Get<EmptyArea>(emptyAreaPoolKey);
+                emptyAreas.Add(area);
+            }
+            
+            for (var i = 0; i < mapData.DefenderDimension.Size; i++)
+            {
+                var area = _poolCollection.Get<DefenderArea>(defenderAreaPoolKey);
+                defenderAreas.Add(area);
+            }
+            
+            for (int i = 0; i < mapXDimension; i++)
+            {
+                var area = _poolCollection.Get<PlayerLooseArea>(playerLooseAreaPoolKey);
+                looseAreas.Add(area);
+            }
+            
+            areas.AddRange(defenderAreas);
+            areas.AddRange(emptyAreas);
+            areas.AddRange(spawnAreas);
+            areas.AddRange(looseAreas);
+            var cells = areas.Select(area => area as IGridCell).ToList();
+            _grid = new Grid(cells, mapXDimension, mapYDimension);
+            _map.InitializeMap(_grid,spawnAreas,emptyAreas,defenderAreas,looseAreas);
+            _mapAnimator.PlayPlacementAnimation(areas,_positionProvider,mapData.GridCreateInterval,OnMapAnimationsCompleted);
         }
-        
+
+        private void OnMapAnimationsCompleted()
+        {
+            _onMapCreated?.Invoke(_map);
+        }
+    }
+
+    public interface IMapGridCreator : IConstructionProvider
+    {
+        void CreateMapGrid(IMapData mapData, Action<IMap> onMapCreated);
     }
 }

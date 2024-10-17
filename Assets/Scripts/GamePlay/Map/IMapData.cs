@@ -1,13 +1,18 @@
-﻿using UnityEngine;
+﻿using General;
 
 namespace GamePlay.Map
 {
     public interface IMapData
     {
-        Vector2Int PlaceableSize { get; }
-        Vector2Int NonPlaceableSize { get; }
-        string PlaceablePoolKey { get; }
-        string NonPlaceablePoolKey { get; }
+        Dimension2D DefenderDimension { get; }
+        Dimension2D EmptyDimension { get; }
+        float CellSize { get; }
+        float Padding { get; }
+        string DefenderAreaKey { get; }
+        string EmptyAreaKey { get; }
+        string SpawnAreaKey { get; }
+        string PlayerLooseAreaKey { get; }
+        
         float GridCreateInterval { get; }
     }
 }

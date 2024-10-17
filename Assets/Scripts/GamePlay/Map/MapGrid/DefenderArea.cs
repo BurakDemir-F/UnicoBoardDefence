@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace GamePlay.Map.MapGrid
 {
-    public class EmptyArea :AreaBase
+    public class DefenderArea :AreaBase
     {
         
     }
