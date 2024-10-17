@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7d06b9afa80646f4a71632d09785e60c, type: 3}
+  m_Name: Tutorial
+  m_EditorClassIdentifier: 
+  _tutorialDefenderLocation: {x: 0, y: 0}
+  _tutorialDefenderType: 2
+  _tapDefenderText: Tap To Build Defender
+  _pickDefenderText: Pick Defender
+  _blueRectanglesInfo: Blue Rectangles Indicates Range of The Defender
+  _tapToBuildText: Tap to Build

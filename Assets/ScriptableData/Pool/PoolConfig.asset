@@ -1,0 +1,39 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2b8f2bf9f304d5eb8d098b5d3ed894a, type: 3}
+  m_Name: PoolConfig
+  m_EditorClassIdentifier: 
+  PoolConfig:
+  - PoolObjectPrefab: {fileID: 3778403292208547580, guid: 34ec1ea4bf3f9994288b79c329c03933,
+      type: 3}
+    DefaultCapacity: 16
+    PoolKey: DefenderArea
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 2667012674928758299, guid: 434aa118f176e1a41971286b0777253e,
+      type: 3}
+    DefaultCapacity: 16
+    PoolKey: EmptyArea
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 8603016400063143916, guid: 2eb3a3505dae0db49b839ad250f35d94,
+      type: 3}
+    DefaultCapacity: 4
+    PoolKey: SpawnArea
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 1923085116353600722, guid: aa7fd517dfb0a3c46bf71a2402769e14,
+      type: 3}
+    DefaultCapacity: 4
+    PoolKey: LooseArea
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
