@@ -11,6 +11,16 @@ namespace GamePlay.Areas
         private void Awake()
         {
             _triggerBox = GetComponent<ITriggerBox>();
+            _map.MapInitialized += MapInitialized;
+        }
+
+        private void OnDestroy()
+        {
+            _map.MapInitialized -= MapInitialized;
+        }
+
+        private void MapInitialized()
+        {
             _map.AddTriggerBox(_triggerBox);
         }
     }

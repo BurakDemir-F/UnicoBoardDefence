@@ -1,4 +1,5 @@
-﻿using GamePlay.TutorialStates;
+﻿using DefaultNamespace;
+using GamePlay.TutorialStates;
 using UnityEngine;
 
 namespace GamePlay.Map
@@ -7,6 +8,7 @@ namespace GamePlay.Map
     {
         [SerializeField] private LevelSO _levelData;
         [SerializeField] private TutorialSo _tutorialData;
+        [SerializeField] private GameItemsSO _gameItems;
         public ILevelData GetLevel()
         {
             return _levelData.LevelData;
@@ -14,12 +16,22 @@ namespace GamePlay.Map
 
         public IMapData GetMapData()
         {
-            return _levelData.LevelData;
+            return _levelData.MapData;
         }
 
         public ITutorialData GetTutorialData()
         {
             return _tutorialData;
+        }
+
+        public IEnemyProperties GetEnemyData()
+        {
+            return _gameItems;
+        }
+
+        public IDefenderProperties GetDefenderData()
+        {
+            return _gameItems;
         }
     }
 }

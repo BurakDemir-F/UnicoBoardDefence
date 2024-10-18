@@ -1,53 +1,33 @@
 ﻿using System.Collections.Generic;
 using Defenders;
 using Enemies;
-using GamePlay.Map;
 using General;
 using UnityEngine;
 using UnityEngine.Serialization;
 
 [System.Serializable]
-public class LevelData : ILevelData,IMapData
+public class LevelData : ILevelData
 {
-    [SerializeField] private List<LevelQuantity> _levelQuantity;
-    [SerializeField] private Dimension2D _defenderDimension;
-    [SerializeField] private Dimension2D _emptyDimension;
-    [SerializeField] private string _defenderAreaPoolKey;
-    [SerializeField] private string _emptyAreaPoolKey;
-    [SerializeField] private string _spawnAreaPoolKey;
-    [SerializeField] private string _playerLooseAreaPoolKey;
-    [SerializeField] private float _cellSize;
-    [SerializeField] private float _padding;
-    [SerializeField] private float _gridCreateInterval;
-    
-    public List<LevelQuantity> LevelQuantities => _levelQuantity;
-    public Dimension2D DefenderDimension => _defenderDimension;
-    public Dimension2D EmptyDimension => _emptyDimension;
-    public string DefenderAreaKey => _defenderAreaPoolKey;
-    public string EmptyAreaKey => _emptyAreaPoolKey;
-    public float GridCreateInterval => _gridCreateInterval;
-
-    public string SpawnAreaKey => _spawnAreaPoolKey;
-    public string PlayerLooseAreaKey => _playerLooseAreaPoolKey;
-    public float CellSize => _cellSize;
-    public float Padding => _padding;
+    [SerializeField] private List<LevelProperties> _levels;
+    public List<LevelProperties> DefenderEnemyCounts => _levels;
 }
 
 public interface ILevelData
 {
-    List<LevelQuantity> LevelQuantities { get; }
+    List<LevelProperties> DefenderEnemyCounts { get; }
 }
 
 [System.Serializable]
-public class LevelQuantity
+public class LevelProperties
 {
     [SerializeField] private EnemyTypeCountDict _enemies;
     [SerializeField] private DefenderTypeCountDict _defenders;
+    [SerializeField] private float _enemySpawnInterval;
 
     public EnemyTypeCountDict Enemies => _enemies;
     public DefenderTypeCountDict Defenders => _defenders;
+    public float EnemySpawnInterval => _enemySpawnInterval;
 }
-
 
 [System.Serializable]
 public class EnemyTypeCountDict : SerializableDictionary<EnemyType, int>

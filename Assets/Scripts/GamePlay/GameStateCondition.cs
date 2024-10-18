@@ -1,9 +1,10 @@
 ﻿using System;
 using General.StateMachines;
+using UnityEngine;
 
 namespace GamePlay
 {
-    public abstract class GameStateCondition : ICondition
+    public abstract class GameStateCondition : MonoBehaviour,ICondition
     {
         protected bool isConditionMet;
         public bool IsConditionMet => isConditionMet;

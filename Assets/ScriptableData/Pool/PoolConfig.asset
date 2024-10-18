@@ -37,3 +37,21 @@ MonoBehaviour:
     PoolKey: LooseArea
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
+  - PoolObjectPrefab: {fileID: 2306532006476773182, guid: 46207ea4cd48ebf42ac1c0bdc76a4a24,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: AverageEnemy
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 4186819977424743255, guid: be1fd3c13d3daa249b885676b154bf64,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: FastestEnemy
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 1303713198865049695, guid: e1e245be903186f40b29dc55a3859fe8,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: HealthiestEnemy
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}

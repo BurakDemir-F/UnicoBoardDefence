@@ -6,7 +6,8 @@ namespace GamePlay
 {
     public abstract class GameState :MonoBehaviour, IState
     {
-        [SerializeField] private StateData _stateData;
+        [SerializeField] protected StateData _stateData;
+        [SerializeField] protected GamePlayEventBus _eventBus;
         
         private ITransition _transition;
         private ICondition _condition;
@@ -22,12 +23,14 @@ namespace GamePlay
         {
             _transition = GetComponent<ITransition>();
             _condition = GetComponent<ICondition>();
-
+            
+            _condition.Construct();
             _condition.OnConditionMet += OnConditionMet;
         }
 
         public virtual void Destruct()
         {
+            _condition.Destruct();
             _condition.OnConditionMet -= OnConditionMet;
         }
 
@@ -39,6 +42,9 @@ namespace GamePlay
 
         public virtual void MakeTransition(IState toState, Action<IState, IState> onTransitionEnd)
         {
+            _transition.FromState = this;
+            _transition.ToState = toState;
+            _transition.MakeTransition(() => onTransitionEnd?.Invoke(this,toState));
         }
 
         public bool IsStatePlaying()

@@ -18,6 +18,14 @@ namespace General.Pool.System
             CheckAndInitialize(_poolRoot);
         }
 
+        public void CheckAndInitialize(Transform transform)
+        {
+            if (_isInitialized) return;
+            
+            InitializePool(_config.PoolConfig,transform);
+            _isInitialized = true;
+        }
+        
         public void InitializePool(List<PoolConfig> config,Transform transform)
         {
             _poolDict = new Dictionary<string, IPool>();
@@ -43,14 +51,6 @@ namespace General.Pool.System
         public IPool GetPool(string key)
         {
             return _poolDict[key];
-        }
-
-        public void CheckAndInitialize(Transform transform)
-        {
-            if (_isInitialized) return;
-            
-            InitializePool(_config.PoolConfig,transform);
-            _isInitialized = true;
         }
     }
 }

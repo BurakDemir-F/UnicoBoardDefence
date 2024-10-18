@@ -13,31 +13,35 @@ MonoBehaviour:
   m_Name: Level
   m_EditorClassIdentifier: 
   _levelData:
-    _levelQuantity:
+    _levels:
     - _enemies:
         isModifiable: 0
         keys: 010000000200000003000000
         values: 030000000100000001000000
       _defenders:
-        isModifiable: 1
-        keys: 010000000200000003000000
+        isModifiable: 0
+        keys: 020000000300000001000000
         values: 030000000200000001000000
+      _enemySpawnInterval: 3
     - _enemies:
         isModifiable: 0
         keys: 010000000200000003000000
         values: 050000000200000003000000
       _defenders:
         isModifiable: 0
-        keys: 010000000200000003000000
+        keys: 020000000300000001000000
         values: 030000000400000002000000
+      _enemySpawnInterval: 3
     - _enemies:
         isModifiable: 0
         keys: 010000000200000003000000
         values: 070000000300000005000000
       _defenders:
-        isModifiable: 0
-        keys: 010000000200000003000000
+        isModifiable: 1
+        keys: 020000000300000001000000
         values: 050000000700000005000000
+      _enemySpawnInterval: 3
+  _mapData:
     _defenderDimension:
       _xLength: 4
       _yLength: 4
@@ -50,4 +54,4 @@ MonoBehaviour:
     _playerLooseAreaPoolKey: LooseArea
     _cellSize: 2
     _padding: 0
-    _gridCreateInterval: 0.1
+    _gridCreateInterval: 0.05

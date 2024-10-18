@@ -33,7 +33,7 @@ namespace GamePlay.Map.MapGrid
                 yield return wait;
             }
 
-            //just waiting for the finish of last animation
+            //just connecting latest area element for waiting end of animations.
             var latestArea = areas[^1];
             latestArea.Position = positionProvider.GetWorldPosition(latestArea.PositionOnGrid());
             latestArea.AnimatePlacing(OnLatestAnimFinished);

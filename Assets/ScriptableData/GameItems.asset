@@ -1,0 +1,49 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efe2e0eb4934e36960ad12316c63741, type: 3}
+  m_Name: GameItems
+  m_EditorClassIdentifier: 
+  _enemyProperties:
+    isModifiable: 0
+    keys: 010000000200000003000000
+    values:
+    - _health: 3
+      _speed: 1
+      _poolKey: FastestEnemy
+    - _health: 10
+      _speed: 0.25
+      _poolKey: HealthiestEnemy
+    - _health: 5
+      _speed: 0.5
+      _poolKey: AverageEnemy
+  _defenderProperties:
+    isModifiable: 0
+    keys: 020000000300000001000000
+    values:
+    - _range: 4
+      _direction: 1
+      _damage: 3
+      _attackInterval: 3
+      _buildTime: 0.5
+      _poolKey: RangerDefender
+    - _range: 2
+      _direction: 1
+      _damage: 5
+      _attackInterval: 4
+      _buildTime: 0.5
+      _poolKey: AverageDefender
+    - _range: 1
+      _direction: 5
+      _damage: 5
+      _attackInterval: 5
+      _buildTime: 0.5
+      _poolKey: DamagingDefender

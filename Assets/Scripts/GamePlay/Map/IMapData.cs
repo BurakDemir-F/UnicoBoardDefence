@@ -2,17 +2,16 @@
 
 namespace GamePlay.Map
 {
-    public interface IMapData
+    public interface  IMapData
     {
-        Dimension2D DefenderDimension { get; }
-        Dimension2D EmptyDimension { get; }
-        float CellSize { get; }
-        float Padding { get; }
-        string DefenderAreaKey { get; }
-        string EmptyAreaKey { get; }
-        string SpawnAreaKey { get; }
-        string PlayerLooseAreaKey { get; }
-        
-        float GridCreateInterval { get; }
+        public Dimension2D DefenderDimension { get; }
+        public Dimension2D EmptyDimension { get; }
+        public float CellSize { get; }
+        public float Padding { get; }
+        public string DefenderAreaKey { get; }
+        public string EmptyAreaKey { get; }
+        public string SpawnAreaKey { get; }
+        public string PlayerLooseAreaKey { get; }
+        public float GridCreateInterval { get; }
     }
 }

@@ -15,5 +15,6 @@ namespace GamePlay.Map.MapGrid
 
         event Action<ITriggerInfo> AreaTriggerEntered;
         event Action<ITriggerInfo> AreaTriggerExited;
+        event Action MapInitialized;
     }
 }

@@ -14,17 +14,15 @@ namespace GamePlay.Map.MapGrid
     {
         [SerializeField] private Transform _mapRoot;
         [SerializeField] private MapSO _map;
+        [SerializeField] private MasterPool _poolCollection;
 
-        private IPoolCollection _poolCollection;
         private Grid _grid;
         private GridPositionProvider _positionProvider;
-        private Dimension2D _dimension2D;
         private IMapAnimator _mapAnimator;
         
         private Action<IMap> _onMapCreated;
         public void Awake()
         {
-            _poolCollection = GetComponent<IPoolCollection>();
             _mapAnimator = GetComponent<IMapAnimator>();
         }
 
@@ -45,8 +43,7 @@ namespace GamePlay.Map.MapGrid
             var mapXDimension = mapData.DefenderDimension.XLength;
             var mapYDimension = mapData.DefenderDimension.YLength + mapData.EmptyDimension.YLength + 2;//(2)spawn area and player loose area add height to the map
             
-            _dimension2D = new Dimension2D(mapXDimension, mapYDimension);
-            var areas = new List<AreaBase>(_dimension2D.Size);
+            var areas = new List<AreaBase>(mapXDimension * mapYDimension);
             var defenderAreas = new List<DefenderArea>(mapData.DefenderDimension.Size);
             var emptyAreas = new List<EmptyArea>(mapData.EmptyDimension.Size);
             var looseAreas = new List<PlayerLooseArea>(mapXDimension);

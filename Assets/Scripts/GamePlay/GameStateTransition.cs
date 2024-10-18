@@ -4,15 +4,15 @@ using UnityEngine;
 
 namespace GamePlay
 {
-    public abstract class GameStateTransition : MonoBehaviour,ITransition
+    public class GameStateTransition : MonoBehaviour,ITransition
     {
         public IState FromState { get; set; }
         public IState ToState { get; set; }
 
 
-        public void MakeTransition(Action OnTransitionEnd)
+        public virtual void MakeTransition(Action OnTransitionEnd)
         {
-            
+            OnTransitionEnd?.Invoke();
         }
     }
 }

@@ -1,7 +1,4 @@
-using System.Collections.Generic;
-using Defenders;
-using Enemies;
-using General;
+using GamePlay.Map;
 using UnityEngine;
 
 
@@ -9,5 +6,7 @@ using UnityEngine;
 public class LevelSO : ScriptableObject
 {
     [SerializeField] private LevelData _levelData;
-    public LevelData LevelData => _levelData;
+    [SerializeField] private MapData _mapData;
+    public ILevelData LevelData => _levelData;
+    public IMapData MapData => _mapData;
 }

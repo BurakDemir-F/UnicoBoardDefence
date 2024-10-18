@@ -19,6 +19,7 @@ namespace GamePlay.Map
         private HashSet<ITriggerBox> _triggerBoxes;
         public event Action<ITriggerInfo> AreaTriggerEntered;
         public event Action<ITriggerInfo> AreaTriggerExited;
+        public event Action MapInitialized;
 
         public void InitializeMap(IGrid grid,
             List<SpawnArea> spawnAreas,
@@ -32,6 +33,7 @@ namespace GamePlay.Map
             DefenderAreas = defenderAreas;
             PlayerLooseAreas = playerLooseAreas;
             _triggerBoxes = new HashSet<ITriggerBox>();
+            MapInitialized?.Invoke();
         }
 
         public void AddTriggerBox(ITriggerBox triggerBox)

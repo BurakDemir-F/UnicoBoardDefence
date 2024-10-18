@@ -10,8 +10,5 @@ namespace General.Pool.System
         void ReturnedToPool();
         IPool Pool { get; set; }
         GameObject Go { get; }
-        event Action OnGetFromPool;
-        event Action OnReturnToPool;
-        T As<T>() where T : class,IPoolObject;
     }
 }
