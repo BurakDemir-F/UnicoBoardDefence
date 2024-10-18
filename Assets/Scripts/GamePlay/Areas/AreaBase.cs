@@ -3,7 +3,7 @@ using General.GridSystem;
 using General.Pool.System;
 using UnityEngine;
 
-namespace GamePlay.Map.MapGrid
+namespace GamePlay.Areas
 {
     public class AreaBase : MonoBehaviour,IGridCell,IPoolObject
     {

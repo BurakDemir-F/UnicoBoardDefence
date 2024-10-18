@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using GamePlay.Areas;
 using GamePlay.Map.MapGrid;
 using General.GridSystem;
 using UnityEngine;
@@ -14,6 +16,10 @@ namespace GamePlay.Map
         public List<DefenderArea> DefenderAreas { get; private set; }
         public List<PlayerLooseArea> PlayerLooseAreas { get; private set; }
 
+        private HashSet<ITriggerBox> _triggerBoxes;
+        public event Action<ITriggerInfo> AreaTriggerEntered;
+        public event Action<ITriggerInfo> AreaTriggerExited;
+
         public void InitializeMap(IGrid grid,
             List<SpawnArea> spawnAreas,
             List<EmptyArea> emptyAreas,
@@ -25,6 +31,37 @@ namespace GamePlay.Map
             EmptyAreas = emptyAreas;
             DefenderAreas = defenderAreas;
             PlayerLooseAreas = playerLooseAreas;
+            _triggerBoxes = new HashSet<ITriggerBox>();
+        }
+
+        public void AddTriggerBox(ITriggerBox triggerBox)
+        {
+            var isAdded = _triggerBoxes.Add(triggerBox);
+            if (isAdded)
+            {
+                triggerBox.TriggerEnter += OnAreaTriggerEnter;
+                triggerBox.TriggerExit += OnAreaTriggerExit;
+            }
+        }
+
+        public void RemoveTriggerBox(ITriggerBox triggerBox)
+        {
+            var isRemoved = _triggerBoxes.Remove(triggerBox);
+            if (isRemoved)
+            {
+                triggerBox.TriggerEnter -= OnAreaTriggerEnter;
+                triggerBox.TriggerExit -= OnAreaTriggerExit;
+            }
+        }
+
+        private void OnAreaTriggerEnter(ITriggerInfo info)
+        {
+            AreaTriggerEntered?.Invoke(info);
+        }
+        
+        private void OnAreaTriggerExit(ITriggerInfo info)
+        {
+            AreaTriggerExited?.Invoke(info);
         }
     }
 }

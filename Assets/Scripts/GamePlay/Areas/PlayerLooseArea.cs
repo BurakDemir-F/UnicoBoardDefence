@@ -1,4 +1,4 @@
-﻿namespace GamePlay.Map.MapGrid
+﻿namespace GamePlay.Areas
 {
     public class PlayerLooseArea : AreaBase
     {

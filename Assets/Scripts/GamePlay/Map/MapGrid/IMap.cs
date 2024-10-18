@@ -1,6 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using GamePlay.Areas;
 using General.GridSystem;
-using UnityEngine;
 
 namespace GamePlay.Map.MapGrid
 {
@@ -11,5 +12,8 @@ namespace GamePlay.Map.MapGrid
         List<EmptyArea> EmptyAreas { get; }
         List<DefenderArea> DefenderAreas { get; }
         List<PlayerLooseArea> PlayerLooseAreas { get; }
+
+        event Action<ITriggerInfo> AreaTriggerEntered;
+        event Action<ITriggerInfo> AreaTriggerExited;
     }
 }

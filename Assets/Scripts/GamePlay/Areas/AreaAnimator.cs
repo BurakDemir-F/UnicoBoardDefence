@@ -2,7 +2,7 @@
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-namespace GamePlay.Map.MapGrid
+namespace GamePlay.Areas
 {
     public class AreaAnimator : MonoBehaviour,IAreaAnimator
     {
