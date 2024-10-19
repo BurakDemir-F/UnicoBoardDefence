@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using DefaultNamespace;
 using Enemies;
 using GamePlay.Areas;
@@ -25,6 +26,9 @@ namespace GamePlay.Spawner
 
         private Coroutine _spawnCor;
         private YieldInstruction _spawnWait;
+        
+        public event Action<EnemyBase> EnemySpawned;
+
         private void Awake()
         {
             _eventBus.Subscribe(GamePlayEvent.LevelSelected,OnLevelSelected);
@@ -85,7 +89,9 @@ namespace GamePlay.Spawner
             var destination = _destinationProvider.GetDestination(spawnArea, _map);
             var enemyData = _enemyData.EnemyProperties[enemyType];
             enemy.ActivateEnemy(enemyData,destination);
+            EnemySpawned?.Invoke(enemy);
         }
+
     }
 
     public interface IEnemySpawner
@@ -93,5 +99,6 @@ namespace GamePlay.Spawner
         void StartRandomSpawning();
         void StopSpawning();
         void SpawnAt(AreaBase spawnArea,EnemyType enemyType);
+        event Action<EnemyBase> EnemySpawned;
     }
 }

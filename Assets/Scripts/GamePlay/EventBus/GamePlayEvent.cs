@@ -7,7 +7,7 @@
         TutorialStarted,
         TutorialEnd,
         LevelStarted,
-        LevelEnd,
+        LevelWin,
         LevelFail
     }
 }

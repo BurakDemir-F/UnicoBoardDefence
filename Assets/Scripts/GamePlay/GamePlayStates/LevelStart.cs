@@ -7,10 +7,10 @@ namespace GamePlay.GamePlayStates
 {
     public class LevelStart : GameState
     {
-        [SerializeField] private EnemySpawner _spawner;
+        [SerializeField] private EnemyController _enemyController;
         public override void PlayState(Action<IState> onStateCompleted)
         {
-            _spawner.StartRandomSpawning();
+            _enemyController.StartEnemySpawn();
         }
     }
 }

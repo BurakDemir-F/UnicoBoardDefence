@@ -6,9 +6,10 @@ namespace General.Pool.System
     public interface IPoolObject
     {
         string Key { get; set; }
-        void GetFromPool();
-        void ReturnedToPool();
+        void OnGetFromPool();
+        void OnReturnedToPool();
         IPool Pool { get; set; }
         GameObject Go { get; }
+        void ReturnToPool();
     }
 }

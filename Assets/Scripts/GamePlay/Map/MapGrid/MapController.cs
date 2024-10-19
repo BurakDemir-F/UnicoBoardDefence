@@ -1,5 +1,7 @@
-﻿using Defenders;
+﻿using System.Collections.Generic;
+using Defenders;
 using GamePlay.Areas;
+using GamePlay.Spawner;
 using General.Pool.System;
 using UnityEngine;
 
@@ -7,10 +9,12 @@ namespace GamePlay.Map.MapGrid
 {
     public class MapController : MonoBehaviour
     {
-        [SerializeField]private LevelDataProvider _levelDataProvider;
+        [SerializeField] private LevelDataProvider _levelDataProvider;
+        [SerializeField] private EnemyController _enemyController;
         private IMap _map;
         private IAreaController _areaController;
         private IDefenderController _defenderController;
+        
         private void Awake()
         {
             _areaController = GetComponent<IAreaController>();
@@ -34,7 +38,7 @@ namespace GamePlay.Map.MapGrid
 
         private void OnAreaTriggerEnter(ITriggerInfo info)
         {
-            if(IsGameArea(info))
+            if(IsEnemyOnGameArea(info))
             {
                 HandleEnemyEnter(info.TriggerItem.TriggerObject.transform,(GameArea)info.TriggeredArea);
             }
@@ -42,12 +46,11 @@ namespace GamePlay.Map.MapGrid
 
         private void OnAreaTriggerExit(ITriggerInfo info)
         {
-            if(IsGameArea(info))
+            if(IsEnemyOnGameArea(info))
             {
                 HandleEnemyExit(info.TriggerItem.TriggerObject.transform,(GameArea)info.TriggeredArea);
             }
         }
-        
         
         private void HandleEnemyEnter(Transform enemy, GameArea area)
         {
@@ -73,7 +76,7 @@ namespace GamePlay.Map.MapGrid
             }
         }
 
-        private bool IsGameArea(ITriggerInfo info)
+        private bool IsEnemyOnGameArea(ITriggerInfo info)
         {
             var triggerItem = info.TriggerItem;
             var triggerType = triggerItem.TriggerItemType;
@@ -89,6 +92,25 @@ namespace GamePlay.Map.MapGrid
             var inRangeAreas = _areaController.GetInRangeAreas(area, defenderData);
             _areaController.IndicateInRangeAreas(inRangeAreas);
             _defenderController.AddAttackableAreas(defenceItem, inRangeAreas);
+            CheckForEnemiesAfterPlacing(area,inRangeAreas);
+        }
+
+        private void CheckForEnemiesAfterPlacing(DefenderArea placedArea, HashSet<GameArea> inRangeAreas)
+        {
+            foreach (var (enemy, area) in _enemyController.EnemyAreaDictionary)
+            {
+                if(area.AreaType != AreaType.DefenderArea ||area.AreaType != AreaType.NonDefenderArea)
+                    continue;
+                
+                if (area == placedArea)
+                    TryUpdateVisibility(placedArea,false);
+
+                var gameArea = (GameArea)area;
+                if (inRangeAreas.Contains(gameArea))
+                {
+                    _defenderController.HandleEnemyAreaEnter(gameArea,enemy.transform);
+                }
+            }
         }
 
         [ContextMenu("PlaceTest")]

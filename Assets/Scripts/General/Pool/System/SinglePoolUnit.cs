@@ -29,12 +29,12 @@ namespace General.Pool.System
             if (_objectStack.Count > 0)
             {
                 var poolObj =  _objectStack.Pop();
-                poolObj.GetFromPool();
+                poolObj.OnGetFromPool();
                 return poolObj;
             }
 
             var newPoolObj = CreateNew();
-            newPoolObj.GetFromPool();
+            newPoolObj.OnGetFromPool();
             return newPoolObj;
         }
         public T Get<T>() where T : IPoolObject
@@ -49,7 +49,7 @@ namespace General.Pool.System
                 "something wrong here!".Print();
                 return;
             }
-            poolObject.ReturnedToPool();
+            poolObject.OnReturnedToPool();
             poolObject.Go.transform.SetParent(_root);
             _objectStack.Push(poolObject);
         }

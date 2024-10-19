@@ -1,4 +1,6 @@
-﻿using General.Pool.System;
+﻿using System;
+using General.Pool.System;
+using Unity.VisualScripting;
 using UnityEngine;
 
 namespace GamePlay.Enemies
@@ -10,23 +12,27 @@ namespace GamePlay.Enemies
         public string Key { get; set; }
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
-
+        
+        public event Action<EnemyBase> EnemyDeath; 
+        
         public Vector3 Position
         {
             get => transform.position;
             set => transform.position = value;
         }
         
-        public void GetFromPool()
+        public void OnGetFromPool()
         {
             gameObject.SetActive(true);
             _movementBehaviour = GetComponent<IMovementBehaviour>();
             _healthBehaviour = GetComponent<IHealthBehaviour>();
+            _healthBehaviour.Death += OnDead;
         }
 
-        public void ReturnedToPool()
+        public void OnReturnedToPool()
         {
             gameObject.SetActive(false);
+            _healthBehaviour.Death -= OnDead;
         }
 
         public void ActivateEnemy(EnemyData enemyData ,Vector3 targetPos)
@@ -35,5 +41,15 @@ namespace GamePlay.Enemies
             _healthBehaviour.InitializeHealthBehaviour(health,health);
             _movementBehaviour.Move(targetPos,enemyData.Speed);
         }
+
+        private void OnDead()
+        {
+            EnemyDeath?.Invoke(this);
+        }
+        public void ReturnToPool()
+        {
+            Pool.Return(this);
+        }
+
     }
 }

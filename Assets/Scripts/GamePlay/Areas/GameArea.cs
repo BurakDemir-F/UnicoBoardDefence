@@ -5,9 +5,9 @@
         private IAreaIndicator _areaIndicator;
         public IAreaIndicator AreaIndicator => _areaIndicator;
         
-        public override void GetFromPool()
+        public override void OnGetFromPool()
         {
-            base.GetFromPool();
+            base.OnGetFromPool();
             _areaIndicator = GetComponent<IAreaIndicator>();
         }
     }

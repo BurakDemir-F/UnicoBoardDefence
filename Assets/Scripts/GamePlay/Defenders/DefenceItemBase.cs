@@ -4,41 +4,46 @@ using UnityEngine;
 
 namespace Defenders
 {
-    public class DefenceItemBase : MonoBehaviour,IPoolObject,IAreaPlaceable
+    public abstract class DefenceItemBase : MonoBehaviour,IPoolObject,IAreaPlaceable
     {
         public DefenderData DefenderData => _defenderData;
         public string Key { get; set; }
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
 
-        private DefenderData _defenderData;
+        protected DefenderData _defenderData;
+        protected HashSet<Transform> _targets;
+        
         private IMaterialChanger _materialChanger;
-        private HashSet<Transform> _targets;
 
         public DefenceItemBase DefenceItem => this;
 
-        public void GetFromPool()
+        public void OnGetFromPool()
         {
             _targets = new HashSet<Transform>();
             _materialChanger = GetComponent<IMaterialChanger>();
             gameObject.SetActive(true);
         }
 
-        public void ReturnedToPool()
+        public void OnReturnedToPool()
         {
-            
+            gameObject.SetActive(false);
         }
 
         public void AddTarget(Transform target)
         {
             _targets.Add(target);
+            HandleTargets();
         }
 
         public void RemoveTarget(Transform target)
         {
             _targets.Remove(target);
+            HandleTargets();
         }
 
+        protected abstract void HandleTargets();
+        
         public void Place(Vector3 position)
         {
             transform.position = position;
@@ -58,6 +63,11 @@ namespace Defenders
         public void MakeOpaque()
         {
             _materialChanger.MakeOpaque();
+        }
+        
+        public void ReturnToPool()
+        {
+            Pool.Return(this);
         }
     }
 

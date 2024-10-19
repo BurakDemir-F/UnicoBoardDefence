@@ -28,14 +28,14 @@ namespace GamePlay.Areas
             get => _center.position;
         }
         
-        public virtual void GetFromPool()
+        public virtual void OnGetFromPool()
         {
             gameObject.SetActive(true);
             _areaAnimator = GetComponent<IAreaAnimator>();
         }
 
 
-        public virtual void ReturnedToPool()
+        public virtual void OnReturnedToPool()
         {
             
         }
@@ -45,6 +45,12 @@ namespace GamePlay.Areas
             _areaAnimator.AnimatePlacing(onComplete);
         }
 
+        public void ReturnToPool()
+        {
+            Pool.Return(this);
+        }
+
+        
         private void OnDrawGizmosSelected()
         {
             if(_center == null)

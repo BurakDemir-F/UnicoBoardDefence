@@ -3013,7 +3013,7 @@ MonoBehaviour:
   _stateData:
     ShouldFinish: 1
   _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
-  _spawner: {fileID: 1502549942}
+  _enemyController: {fileID: 827789654}
 --- !u!1001 &218067415
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8664,6 +8664,7 @@ Transform:
   m_Children:
   - {fileID: 1238151071}
   - {fileID: 212305076}
+  - {fileID: 1132148397}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9013,6 +9014,53 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 824303285}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &827789653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 827789655}
+  - component: {fileID: 827789654}
+  m_Layer: 0
+  m_Name: EnemyController
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &827789654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827789653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 488a9b3c4b494262821d36039355555d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _enemySpawner: {fileID: 1502549942}
+  _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
+  _map: {fileID: 11400000, guid: 17dbc06821b6d194ab7f90328130327f, type: 2}
+--- !u!4 &827789655
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 827789653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &842162379
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11431,6 +11479,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _levelDataProvider: {fileID: 1340135663}
+  _enemyController: {fileID: 827789654}
 --- !u!4 &1132148397
 Transform:
   m_ObjectHideFlags: 0
@@ -11438,13 +11487,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1132148393}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_Father: {fileID: 795066716}
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1134641918
 PrefabInstance:
