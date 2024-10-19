@@ -25,25 +25,28 @@ MonoBehaviour:
     - _health: 5
       _speed: 0.5
       _poolKey: AverageEnemy
-  _defenderProperties:
+  _defenderItemProperties:
     isModifiable: 0
     keys: 020000000300000001000000
     values:
-    - _range: 4
+    - _defenderType: 0
+      _range: 4
       _direction: 1
       _damage: 3
       _attackInterval: 3
       _buildTime: 0.5
-      _poolKey: RangerDefender
-    - _range: 2
+      _poolKey: RangerDefenceItem
+    - _defenderType: 0
+      _range: 2
       _direction: 1
       _damage: 5
       _attackInterval: 4
       _buildTime: 0.5
-      _poolKey: AverageDefender
-    - _range: 1
+      _poolKey: AverageDefenceItem
+    - _defenderType: 0
+      _range: 1
       _direction: 5
       _damage: 5
       _attackInterval: 5
       _buildTime: 0.5
-      _poolKey: DamagingDefender
+      _poolKey: DamagingDefenceItem

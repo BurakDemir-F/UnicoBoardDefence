@@ -55,3 +55,21 @@ MonoBehaviour:
     PoolKey: HealthiestEnemy
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
+  - PoolObjectPrefab: {fileID: 4165374597789030389, guid: 13aa6f6ecfc2adc4491182bb311a3d02,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: AverageDefenceItem
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 516742926139213709, guid: c447066c3818d3b4d863541d06c52937,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: DamagingDefenceItem
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}
+  - PoolObjectPrefab: {fileID: 7430727442719705377, guid: 961ce9acb4abf6e49a19fbd8a076f5f4,
+      type: 3}
+    DefaultCapacity: 5
+    PoolKey: RangerDefenceItem
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}

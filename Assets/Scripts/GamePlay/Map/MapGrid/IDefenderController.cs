@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DefaultNamespace;
 using Defenders;
 using GamePlay.Areas;
 using General.Pool.System;
@@ -8,9 +9,10 @@ namespace GamePlay.Map.MapGrid
 {
     public interface IDefenderController
     {
+        void Initialize(IPoolCollection poolCollection,IDefenderProperties defenderItemDatas);
         void AddAttackableAreas(DefenceItemBase defenceItem, HashSet<GameArea> inRangeAreas);
         void HandleEnemyAreaEnter(GameArea area, Transform enemy);
-        void Initialize(IPoolCollection poolCollection);
-        DefenceItemBase CreateDefender(DefenderData data);
+        DefenceItemBase CreateDefender(DefenderType data);
+        void UpdateVisibility(DefenceItemBase defenceItem,bool shouldBeTransparent);
     }
 }

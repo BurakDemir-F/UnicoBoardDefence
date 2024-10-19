@@ -22,7 +22,7 @@ MonoBehaviour:
         isModifiable: 0
         keys: 020000000300000001000000
         values: 030000000200000001000000
-      _enemySpawnInterval: 3
+      _enemySpawnInterval: 6
     - _enemies:
         isModifiable: 0
         keys: 010000000300000002000000
@@ -31,7 +31,7 @@ MonoBehaviour:
         isModifiable: 0
         keys: 020000000300000001000000
         values: 030000000400000002000000
-      _enemySpawnInterval: 3
+      _enemySpawnInterval: 6
     - _enemies:
         isModifiable: 0
         keys: 010000000300000002000000
@@ -40,7 +40,7 @@ MonoBehaviour:
         isModifiable: 1
         keys: 020000000300000001000000
         values: 050000000700000005000000
-      _enemySpawnInterval: 3
+      _enemySpawnInterval: 6
   _mapData:
     _defenderDimension:
       _xLength: 4

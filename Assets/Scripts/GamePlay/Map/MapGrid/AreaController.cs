@@ -68,13 +68,17 @@ namespace GamePlay.Map.MapGrid
         {
             var inRangeAreas = new HashSet<GameArea>();
             var grid = _map.Grid;
+            GameArea areaTemp = placedArea;
             for (int i = 0; i < range; i++)
             {
-                var hasNextArea = grid.TryGetNextCell(placedArea, direction, out var nextCell);
+                var hasNextArea = grid.TryGetNextCell(areaTemp, direction, out var nextCell);
                 if (hasNextArea)
                 {
                     if(nextCell is GameArea area)
+                    {
                         inRangeAreas.Add(area);
+                        areaTemp = area;
+                    }
                 }
             }
             return inRangeAreas;

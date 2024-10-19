@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DefaultNamespace;
 using Defenders;
 using GamePlay.Areas;
 using General.Pool.System;
@@ -11,10 +12,11 @@ namespace GamePlay.Map.MapGrid
         private Dictionary<DefenceItemBase, HashSet<GameArea>> _defenderInRangeAreaDict = new ();
         private HashSet<DefenceItemBase> _defenders = new();
         private IPoolCollection _poolCollection;
-
-        public void Initialize(IPoolCollection poolCollection)
+        private IDefenderProperties _defenderItemDatas;
+        public void Initialize(IPoolCollection poolCollection,IDefenderProperties defenderItemDatas)
         {
             _poolCollection = poolCollection;
+            _defenderItemDatas = defenderItemDatas;
         }
 
         public void HandleEnemyAreaEnter(GameArea area,Transform enemy)
@@ -23,9 +25,12 @@ namespace GamePlay.Map.MapGrid
             TryTrackEnemy(area,enemy);
         }
         
-        public DefenceItemBase CreateDefender(DefenderData data)
+        public DefenceItemBase CreateDefender(DefenderType type)
         {
+            var data = _defenderItemDatas.DefenderItemProperties[type];
             var defender = _poolCollection.Get<DefenceItemBase>(data.PoolKey);
+            defender.transform.SetParent(transform);
+            defender.SetData(data);
             _defenders.Add(defender);
             return defender;
         }
@@ -57,6 +62,14 @@ namespace GamePlay.Map.MapGrid
                     hasRangeDefender.AddTarget(enemy);
                 }
             }
+        }
+
+        public void UpdateVisibility(DefenceItemBase defenceItem, bool shouldBeTransparent)
+        {
+            if(shouldBeTransparent)
+                defenceItem.MakeTransparent();
+            else
+                defenceItem.MakeOpaque();
         }
 
         private bool IsInAttackRange(GameArea area)

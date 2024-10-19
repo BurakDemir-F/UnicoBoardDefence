@@ -8,12 +8,14 @@ namespace GamePlay.Areas
     public class AreaBase : MonoBehaviour,IGridCell,IPoolObject
     {
         [SerializeField] private Transform _center;
+        [SerializeField]private AreaType _areaType;
         private IAreaAnimator _areaAnimator;
         public int XPos { get; set; }
         public int YPos { get; set; }
         public string Key { get; set; }
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
+        public AreaType AreaType => _areaType;
         
         public Vector3 Position
         {

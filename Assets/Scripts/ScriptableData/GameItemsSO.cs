@@ -3,6 +3,7 @@ using Defenders;
 using Enemies;
 using General;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace DefaultNamespace
 {
@@ -10,10 +11,10 @@ namespace DefaultNamespace
     public class GameItemsSO : ScriptableObject, IEnemyProperties,IDefenderProperties
     {
         [SerializeField] private EnemyTypeDataDict _enemyProperties;
-        [SerializeField] private DefenderTypeDataDict _defenderProperties;
+        [SerializeField] private DefenderTypeDataDict _defenderItemProperties;
         
         public Dictionary<EnemyType, EnemyData> EnemyProperties => _enemyProperties;
-        public Dictionary<DefenderType, DefenderData> DefenderProperties => _defenderProperties;
+        public Dictionary<DefenderType, DefenderData> DefenderItemProperties => _defenderItemProperties;
     }
 
     public interface IEnemyProperties
@@ -23,7 +24,7 @@ namespace DefaultNamespace
 
     public interface IDefenderProperties
     {
-        Dictionary<DefenderType, DefenderData> DefenderProperties { get; }
+        Dictionary<DefenderType, DefenderData> DefenderItemProperties { get; }
     }
     
     [System.Serializable]
