@@ -9,12 +9,13 @@ namespace GamePlay.Map.MapGrid
     {
         IGrid Grid { get; }
         List<SpawnArea> SpawnAreas { get; }
-        List<EmptyArea> EmptyAreas { get; }
+        List<NonDefenderArea> EmptyAreas { get; }
         List<DefenderArea> DefenderAreas { get; }
         List<PlayerLooseArea> PlayerLooseAreas { get; }
 
+        event Action MapInitialized;
         event Action<ITriggerInfo> AreaTriggerEntered;
         event Action<ITriggerInfo> AreaTriggerExited;
-        event Action MapInitialized;
+        
     }
 }

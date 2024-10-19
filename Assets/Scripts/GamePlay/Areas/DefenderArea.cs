@@ -1,6 +1,6 @@
 ﻿namespace GamePlay.Areas
 {
-    public class DefenderArea :AreaBase
+    public class DefenderArea :PlaceableArea
     {
         
     }

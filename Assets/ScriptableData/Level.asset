@@ -16,7 +16,7 @@ MonoBehaviour:
     _levels:
     - _enemies:
         isModifiable: 0
-        keys: 010000000200000003000000
+        keys: 010000000300000002000000
         values: 030000000100000001000000
       _defenders:
         isModifiable: 0
@@ -25,8 +25,8 @@ MonoBehaviour:
       _enemySpawnInterval: 3
     - _enemies:
         isModifiable: 0
-        keys: 010000000200000003000000
-        values: 050000000200000003000000
+        keys: 010000000300000002000000
+        values: 050000000300000002000000
       _defenders:
         isModifiable: 0
         keys: 020000000300000001000000
@@ -34,8 +34,8 @@ MonoBehaviour:
       _enemySpawnInterval: 3
     - _enemies:
         isModifiable: 0
-        keys: 010000000200000003000000
-        values: 070000000300000005000000
+        keys: 010000000300000002000000
+        values: 070000000500000003000000
       _defenders:
         isModifiable: 1
         keys: 020000000300000001000000

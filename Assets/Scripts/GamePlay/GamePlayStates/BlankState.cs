@@ -7,7 +7,7 @@ namespace GamePlay.GamePlayStates
     {
         public override void PlayState(Action<IState> onStateCompleted)
         {
-            //isStatePlaying = true;
+            
         }
     }
 }

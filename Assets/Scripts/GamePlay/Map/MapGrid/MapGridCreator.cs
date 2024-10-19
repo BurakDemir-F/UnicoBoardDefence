@@ -45,7 +45,7 @@ namespace GamePlay.Map.MapGrid
             
             var areas = new List<AreaBase>(mapXDimension * mapYDimension);
             var defenderAreas = new List<DefenderArea>(mapData.DefenderDimension.Size);
-            var emptyAreas = new List<EmptyArea>(mapData.EmptyDimension.Size);
+            var emptyAreas = new List<NonDefenderArea>(mapData.EmptyDimension.Size);
             var looseAreas = new List<PlayerLooseArea>(mapXDimension);
             var spawnAreas = new List<SpawnArea>(mapXDimension);
             
@@ -57,7 +57,7 @@ namespace GamePlay.Map.MapGrid
             
             for (var i = 0; i < mapData.EmptyDimension.Size; i++)
             {
-                var area = _poolCollection.Get<EmptyArea>(emptyAreaPoolKey);
+                var area = _poolCollection.Get<NonDefenderArea>(emptyAreaPoolKey);
                 emptyAreas.Add(area);
             }
             

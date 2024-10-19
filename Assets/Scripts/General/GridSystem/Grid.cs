@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Utilities;
 
 namespace General.GridSystem
 {
@@ -59,62 +60,7 @@ namespace General.GridSystem
         {
             return this[0, 0];
         }
-
-        protected virtual Vector2Int GetNextPosition(IGridCell currentCell)
-        {
-            var x = currentCell.XPos;
-            var y = currentCell.YPos;
-
-            var lastX = _xDimension - 1;
-            var lastY = _yDimension - 1;
-            if (x > lastX && y > lastY || x <= lastX && y > lastY)
-                return Vector2Int.one * -1;
-
-            if (x < _xDimension - 1)
-                return new Vector2Int(x + 1, y);
-
-            return new Vector2Int(0, y + 1);
-        }
-
-        public virtual bool TryGetPreviousCell(IGridCell currentCell, out IGridCell previousCell)
-        {
-            var x = currentCell.XPos;
-            var y = currentCell.YPos;
-
-            var lastX = _xDimension - 1;
-            var lastY = _yDimension - 1;
-
-            var isFirst = y == 0 && x == 0;
-            var isInBoundary = x > lastX && y > lastY || x <= lastX && y > lastY;
-            if (isFirst || !isInBoundary)
-            {
-                previousCell = default;
-                return false;
-            }
-
-            if (y != 0)
-            {
-                previousCell = this[x-1, y];
-                return true;
-            }
-
-            previousCell = this[y - 1, lastX];
-            return true;
-        }
-
-        public virtual bool TryGetNextCell(IGridCell currentCell, out IGridCell nextCell)
-        {
-            var nextPos = GetNextPosition(currentCell);
-
-            if (nextPos == Vector2Int.one * -1)
-            {
-                nextCell = null;
-                return false;
-            }
-            
-            nextCell = this[nextPos.x, nextPos.y];
-            return true;
-        }
+      
 
         public virtual IGridCell this[int x, int y]
         {
@@ -133,24 +79,40 @@ namespace General.GridSystem
             }
         }
 
-        public List<IGridCell> GetNeighbors(IGridCell cell)
+        public bool TryGetNextCell(IGridCell cell,Direction direction, out IGridCell nextCell)
         {
-            var neighbors = new List<IGridCell>();
+            var neighbors = GetNeighbors(cell);
+            foreach (var neighbor in neighbors)
+            {
+                if (neighbor.Direction == direction)
+                {
+                    nextCell = neighbor.Cell;
+                    return true;
+                }
+            }
+
+            nextCell = default;
+            return false;
+        }
+
+        public List<Neighbor> GetNeighbors(IGridCell cell)
+        {
+            var neighbors = new List<Neighbor>();
 
             var x = cell.XPos;
             var y = cell.YPos;
 
-            if (IsSafe(x + 1, y)) neighbors.Add(this[x + 1, y]);
-            if (IsSafe(x - 1, y)) neighbors.Add(this[x - 1, y]);
-            if (IsSafe(x, y + 1)) neighbors.Add(this[x, y + 1]);
-            if (IsSafe(x, y - 1)) neighbors.Add(this[x, y - 1]);
+            if (IsExists(x + 1, y)) neighbors.Add(new Neighbor(Direction.Right,this[x + 1, y]));
+            if (IsExists(x - 1, y)) neighbors.Add(new Neighbor(Direction.Left,this[x - 1, y]));
+            if (IsExists(x, y + 1)) neighbors.Add(new Neighbor(Direction.Forward,this[x, y + 1]));
+            if (IsExists(x, y - 1)) neighbors.Add(new Neighbor(Direction.Back,this[x, y - 1]));
 
             return neighbors;
-
-            bool IsSafe(int xPos, int yPos)
-            {
-                return (xPos >= 0 && xPos < _xDimension && yPos >= 0 && yPos < _yDimension);
-            }
+        }
+        
+        private bool IsExists(int xPos, int yPos)
+        {
+            return (xPos >= 0 && xPos < _xDimension && yPos >= 0 && yPos < _yDimension);
         }
 
         public IEnumerator<IGridCell> GetEnumerator()
@@ -168,5 +130,6 @@ namespace General.GridSystem
         {
             return GetEnumerator();
         }
+
     }
 }

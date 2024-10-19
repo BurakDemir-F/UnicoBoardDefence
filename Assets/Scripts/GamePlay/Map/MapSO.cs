@@ -12,7 +12,7 @@ namespace GamePlay.Map
     {
         public IGrid Grid { get; private set; }
         public List<SpawnArea> SpawnAreas { get; private set; }
-        public List<EmptyArea> EmptyAreas { get; private set; }
+        public List<NonDefenderArea> EmptyAreas { get; private set; }
         public List<DefenderArea> DefenderAreas { get; private set; }
         public List<PlayerLooseArea> PlayerLooseAreas { get; private set; }
 
@@ -23,7 +23,7 @@ namespace GamePlay.Map
 
         public void InitializeMap(IGrid grid,
             List<SpawnArea> spawnAreas,
-            List<EmptyArea> emptyAreas,
+            List<NonDefenderArea> emptyAreas,
             List<DefenderArea> defenderAreas,
             List<PlayerLooseArea> playerLooseAreas)
         {

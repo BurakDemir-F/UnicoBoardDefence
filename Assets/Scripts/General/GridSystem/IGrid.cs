@@ -10,5 +10,7 @@ namespace General.GridSystem
         IGridCell GetLast();
         IGridCell GetFirst();
         IGridCell this[int x, int y] { get; set; }
+        bool TryGetNextCell(IGridCell cell, Direction direction, out IGridCell nextCell);
+        List<Neighbor> GetNeighbors(IGridCell cell);
     }
 }

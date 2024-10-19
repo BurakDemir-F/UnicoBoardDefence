@@ -35,6 +35,5 @@ namespace GamePlay.Enemies
             _healthBehaviour.InitializeHealthBehaviour(health,health);
             _movementBehaviour.Move(targetPos,enemyData.Speed);
         }
-        
     }
 }
