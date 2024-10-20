@@ -1,7 +1,10 @@
 ﻿using System.Collections.Generic;
 using Defenders;
+using Defenders.UI;
 using GamePlay.Areas;
+using GamePlay.Enemies;
 using GamePlay.Spawner;
+using General;
 using General.Pool.System;
 using UnityEngine;
 
@@ -11,6 +14,7 @@ namespace GamePlay.Map.MapGrid
     {
         [SerializeField] private LevelDataProvider _levelDataProvider;
         [SerializeField] private EnemyController _enemyController;
+        [SerializeField] private ItemActionsEventBus _itemActions;
         private IMap _map;
         private IAreaController _areaController;
         private IDefenderController _defenderController;
@@ -19,6 +23,8 @@ namespace GamePlay.Map.MapGrid
         {
             _areaController = GetComponent<IAreaController>();
             _defenderController = GetComponent<IDefenderController>();
+            _enemyController.EnemyDeath += OnEnemyDeath;
+            _itemActions.Subscribe(ItemActions.DefenceItemSelected,OnDefenceItemSelected);
         }
 
         public void Initialize(IMap map,IPoolCollection poolCollection)
@@ -34,13 +40,36 @@ namespace GamePlay.Map.MapGrid
         {
             _map.AreaTriggerEntered -= OnAreaTriggerEnter;
             _map.AreaTriggerExited -= OnAreaTriggerExit;
+            _enemyController.EnemyDeath -= OnEnemyDeath;
+            _itemActions.UnSubscribe(ItemActions.DefenceItemSelected,OnDefenceItemSelected);
         }
 
+        private void OnDefenceItemSelected(IEventInfo eventInfo)
+        {
+            var defenderSelectInfo = (DefenceItemSelectedEventInfo)eventInfo;
+            var defenderType = defenderSelectInfo.DefenderType;
+            var defenderArea = defenderSelectInfo.DefenderArea;
+            var isPlaceable = _areaController.IsPlaceable(defenderArea);
+            if (isPlaceable)
+            {
+                var defender = _defenderController.CreateDefender(defenderType);
+                PlaceDefender(defenderArea,defender);
+            }
+        }
+        
         private void OnAreaTriggerEnter(ITriggerInfo info)
         {
             if(IsEnemyOnGameArea(info))
             {
-                HandleEnemyEnter(info.TriggerItem.TriggerObject.transform,(GameArea)info.TriggeredArea);
+                var gameArea = (GameArea)info.TriggeredArea;
+                gameArea.DrawGizmo();
+                HandleEnemyEnter(info.TriggerItem.TriggerObject.transform,gameArea);
+                return;
+            }
+
+            if (IsEnemy(info))
+            {
+                _defenderController.UnTrackEnemy(info.TriggerItem.TriggerObject.transform);
             }
         }
 
@@ -48,7 +77,9 @@ namespace GamePlay.Map.MapGrid
         {
             if(IsEnemyOnGameArea(info))
             {
-                HandleEnemyExit(info.TriggerItem.TriggerObject.transform,(GameArea)info.TriggeredArea);
+                var gameArea = (GameArea)info.TriggeredArea;
+                gameArea.CloseGizmo();
+                HandleEnemyExit(info.TriggerItem.TriggerObject.transform,gameArea);
             }
         }
         
@@ -62,7 +93,12 @@ namespace GamePlay.Map.MapGrid
         {
             TryUpdateVisibility(area,true);
         }
-
+        
+        private void OnEnemyDeath(EnemyBase enemy)
+        {
+            _defenderController.UnTrackEnemy(enemy.transform);
+        }
+        
         private void TryUpdateVisibility(GameArea area, bool isExit)
         {
             if (area.AreaType == AreaType.DefenderArea)
@@ -78,13 +114,16 @@ namespace GamePlay.Map.MapGrid
 
         private bool IsEnemyOnGameArea(ITriggerInfo info)
         {
-            var triggerItem = info.TriggerItem;
-            var triggerType = triggerItem.TriggerItemType;
             var triggerArea = info.TriggeredArea;
-            return triggerType == TriggerItemType.Enemy &&
+            return IsEnemy(info) &&
                    triggerArea.AreaType is AreaType.DefenderArea or AreaType.NonDefenderArea;
         }
 
+        private bool IsEnemy(ITriggerInfo info)
+        {
+            return info.TriggerItem.TriggerItemType == TriggerItemType.Enemy;
+        }
+        
         private void PlaceDefender(DefenderArea area, DefenceItemBase defenceItem)
         {
             _areaController.Place(area,defenceItem);
@@ -111,24 +150,6 @@ namespace GamePlay.Map.MapGrid
                     _defenderController.HandleEnemyAreaEnter(gameArea,enemy.transform);
                 }
             }
-        }
-
-        [ContextMenu("PlaceTest")]
-        private void PlaceTest()
-        {
-            var defenderArea1 = _map.DefenderAreas[6];
-            var defenceItem1 = _defenderController.CreateDefender(DefenderType.Damaging);
-            PlaceDefender(defenderArea1,defenceItem1);
-            
-            
-            var defenderArea2 = _map.DefenderAreas[2];
-            var defenceItem2 = _defenderController.CreateDefender(DefenderType.Average);
-            PlaceDefender(defenderArea2,defenceItem2);
-            
-            
-            var defenderArea = _map.DefenderAreas[11];
-            var defenceItem = _defenderController.CreateDefender(DefenderType.Ranger);
-            PlaceDefender(defenderArea,defenceItem);
         }
     }
 }

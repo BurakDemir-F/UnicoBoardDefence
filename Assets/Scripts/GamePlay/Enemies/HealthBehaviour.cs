@@ -1,10 +1,12 @@
 ﻿using System;
 using UnityEngine;
+using Utilities;
 
 namespace GamePlay.Enemies
 {
     public class HealthBehaviour : MonoBehaviour,IHealthBehaviour
     {
+        private IHealthUI _healthUI;
         private float _maxHealth;
         private float _currentHealth;
 
@@ -16,13 +18,16 @@ namespace GamePlay.Enemies
 
         public void InitializeHealthBehaviour(float maxHealth, float currentHealth)
         {
+            _healthUI = GetComponent<IHealthUI>();
             _maxHealth = maxHealth;
             _currentHealth = currentHealth;
+            _healthUI.SetHealth(HealthNormalized);
         }
 
-        public void Damage(float newHealth)
+        public void Damage(float damageAmount)
         {
-            _currentHealth -= newHealth;
+            _currentHealth -= damageAmount;
+            _healthUI.SetHealth(HealthNormalized);
             if (_currentHealth <= 0)
             {
                 _currentHealth = 0;
@@ -34,7 +39,7 @@ namespace GamePlay.Enemies
     public interface IHealthBehaviour
     {
         void InitializeHealthBehaviour(float maxHealth, float currentHealth);
-        void Damage(float newHealth);
+        void Damage(float damageAmount);
         float Health { get; }
         float MaxHealth { get; }
         float HealthNormalized { get; }

@@ -32,7 +32,7 @@ namespace Controllers
             var enemyData = _dataProvider.GetEnemyData();
             var levelData = _dataProvider.GetLevel();
             _spawner.Initialize(map,levelData,enemyData);
-            _eventBus.Publish(GamePlayEvent.LevelSelected,new LevelSelectedEventInfo(2));
+            _eventBus.Publish(GamePlayEvent.LevelSelected,new LevelSelectedEventInfo(2,levelData.DefenderEnemyCounts[2]));
             _eventBus.Publish(GamePlayEvent.LevelStarted,null);
             _mapController.Initialize(map,_poolCollection);
         }

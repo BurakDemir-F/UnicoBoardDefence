@@ -1,6 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using GamePlay.Enemies;
 using General.Pool.System;
 using UnityEngine;
+using Utilities;
 
 namespace Defenders
 {
@@ -27,6 +30,17 @@ namespace Defenders
         public void RemoveTarget(Transform target)
         {
             HandleTargetRemove(target);
+        }
+
+        public void ClearAllTargets()
+        {
+            _attackInfo.Reset();
+            _targets.Clear();
+        }
+
+        public bool HasTarget(Transform target)
+        {
+            return _targets.Contains(target);
         }
 
         private void HandleNewTarget(Transform target)
@@ -69,10 +83,27 @@ namespace Defenders
                 bullet.Go.transform.position = startPos;
                 var bulletTarget = _attackInfo.CurrentTarget;
                 bullet.Fire(bulletTarget,_weaponData.BulletSpeed);
+                bullet.Hit += OnBulletHit;
+                bullet.DestinationReached += OnBulletDestinationReached;
                 _attackInfo.LatestAttackTime = _attackInfo.ElapsedTime;
             }
         }
 
+        private void OnBulletHit(IDamageable damageable,BulletBase bullet)
+        {
+            bullet.Hit -= OnBulletHit;
+            bullet.DestinationReached -= OnBulletDestinationReached;
+            damageable.Damage(_weaponData.Damage);
+            bullet.ReturnToPool();
+        }
+
+        private void OnBulletDestinationReached(BulletBase bullet)
+        {
+            bullet.Hit -= OnBulletHit;
+            bullet.DestinationReached -= OnBulletDestinationReached;
+            bullet.ReturnToPool();
+        }
+        
         private struct AttackInfo
         {
             public bool IsAttacking;
@@ -90,7 +121,25 @@ namespace Defenders
             {
                 Refresh();
                 ElapsedTime = 0f;
-                LatestAttackTime = 0f;
+                LatestAttackTime = -10f;
+            }
+        }
+
+        private void OnDrawGizmos()
+        {
+            if (_attackStart != null)
+            {
+                Gizmos.color = Color.red;
+                Gizmos.DrawSphere(_attackStart.position, .1f);
+            }
+
+            if (_targets != null)
+            {
+                foreach (var target in _targets)
+                {
+                    Gizmos.color = Color.green;
+                    Gizmos.DrawSphere(target.position, .1f);
+                }
             }
         }
     }

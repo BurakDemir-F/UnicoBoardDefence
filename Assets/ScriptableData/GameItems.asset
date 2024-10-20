@@ -39,6 +39,7 @@ MonoBehaviour:
         _attackInterval: 3
         _bulletKey: Bullet
         _bulletSpeed: 10
+      _visual: {fileID: 21300000, guid: a94b5182f109cf6479750142cdc745bf, type: 3}
     - _defenderType: 3
       _range: 2
       _direction: 1
@@ -49,6 +50,7 @@ MonoBehaviour:
         _attackInterval: 4
         _bulletKey: Bullet
         _bulletSpeed: 10
+      _visual: {fileID: 21300000, guid: ef80b286326c43442963ec59ce6deadd, type: 3}
     - _defenderType: 1
       _range: 1
       _direction: 5
@@ -59,3 +61,4 @@ MonoBehaviour:
         _attackInterval: 5
         _bulletKey: Bullet
         _bulletSpeed: 10
+      _visual: {fileID: 21300000, guid: 47dd6f059e6d71e4680fde7364cf8dcb, type: 3}

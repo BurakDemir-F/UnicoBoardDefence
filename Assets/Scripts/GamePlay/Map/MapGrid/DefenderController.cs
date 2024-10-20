@@ -1,22 +1,56 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using DefaultNamespace;
 using Defenders;
 using GamePlay.Areas;
+using General;
 using General.Pool.System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace GamePlay.Map.MapGrid
 {
     public class DefenderController : MonoBehaviour, IDefenderController
     {
+        [SerializeField] private GamePlayEventBus _gamePlayEventBus;
+        [SerializeField] private ItemActionsEventBus _itemActionsEventBus;
         private Dictionary<DefenceItemBase, HashSet<GameArea>> _defenderInRangeAreaDict = new ();
         private HashSet<DefenceItemBase> _defenders = new();
         private IPoolCollection _poolCollection;
         private IDefenderProperties _defenderItemDatas;
+        private Dictionary<DefenderType, int> _remainingDefenceItems = new();
+        private LevelProperties _levelProperties;
+
         public void Initialize(IPoolCollection poolCollection,IDefenderProperties defenderItemDatas)
         {
             _poolCollection = poolCollection;
             _defenderItemDatas = defenderItemDatas;
+        }
+
+        private void Awake()
+        {
+            _gamePlayEventBus.Subscribe(GamePlayEvent.LevelSelected,OnLevelSelected);
+            _gamePlayEventBus.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _gamePlayEventBus.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+        }
+
+        private void OnDestroy()
+        {
+            _gamePlayEventBus.UnSubscribe(GamePlayEvent.LevelSelected,OnLevelSelected);
+            _gamePlayEventBus.UnSubscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _gamePlayEventBus.UnSubscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+        }
+
+        private void OnLevelSelected(IEventInfo info)
+        {
+            var levelInfo = (LevelSelectedEventInfo)info;
+            _levelProperties = levelInfo.LevelProperties;
+            _remainingDefenceItems.Clear();
+            
+            foreach (var (type, count) in _levelProperties.Defenders)
+                _remainingDefenceItems.Add(type,count);
+            
+            InvokeRemainingItems();
         }
 
         public void HandleEnemyAreaEnter(GameArea area,Transform enemy)
@@ -32,7 +66,23 @@ namespace GamePlay.Map.MapGrid
             defender.transform.SetParent(transform);
             defender.Initialize(data,_poolCollection);
             _defenders.Add(defender);
+            UpdateRemainingDefenceItems(type);
             return defender;
+        }
+
+        private void UpdateRemainingDefenceItems(DefenderType defenderType)
+        {
+            if (_remainingDefenceItems[defenderType] > 0)
+            {
+                _remainingDefenceItems[defenderType]--;
+                InvokeRemainingItems();
+            }
+        }
+
+        private void InvokeRemainingItems()
+        {
+            _itemActionsEventBus.Publish(ItemActions.RemainingDefenceItemsChanged,
+                new RemainingItemsInfo(_remainingDefenceItems));
         }
 
         public void AddAttackableAreas(DefenceItemBase defenceItem, HashSet<GameArea> inRangeAreas)
@@ -60,6 +110,17 @@ namespace GamePlay.Map.MapGrid
                 foreach (var hasRangeDefender in hasRangeDefenders)
                 {
                     hasRangeDefender.AddTarget(enemy);
+                }
+            }
+        }
+        
+        public void UnTrackEnemy(Transform enemyTransform)
+        {
+            foreach (var defenceItem in _defenders)
+            {
+                if (defenceItem.IsTrackingEnemy(enemyTransform))
+                {
+                    defenceItem.RemoveTarget(enemyTransform);
                 }
             }
         }
@@ -95,6 +156,17 @@ namespace GamePlay.Map.MapGrid
             }
 
             return defenders;
+        }
+        
+        private void OnLevelEnd(IEventInfo info)
+        {
+            foreach (var defenceItemBase in _defenders)
+            {
+                defenceItemBase.ReturnToPool();
+            }
+            
+            _defenders.Clear();
+            _defenderInRangeAreaDict.Clear();
         }
     }
 }

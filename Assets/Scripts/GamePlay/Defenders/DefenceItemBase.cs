@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using General.Pool.System;
 using UnityEngine;
 
 namespace Defenders
 {
-    public abstract class DefenceItemBase : MonoBehaviour,IPoolObject,IAreaPlaceable
+    public abstract class DefenceItemBase : MonoBehaviour, IPoolObject, IAreaPlaceable
     {
         private Weapon _weapon;
         public DefenderData DefenderData => _defenderData;
@@ -12,7 +13,7 @@ namespace Defenders
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
         public DefenceItemBase DefenceItem => this;
-        
+
         protected DefenderData _defenderData;
         private IMaterialChanger _materialChanger;
         private IPoolCollection _poolCollection;
@@ -26,14 +27,15 @@ namespace Defenders
 
         public void OnReturnedToPool()
         {
+            _weapon.ClearAllTargets();
             gameObject.SetActive(false);
         }
 
-        public void Initialize(DefenderData data,IPoolCollection poolCollection)
+        public void Initialize(DefenderData data, IPoolCollection poolCollection)
         {
             _defenderData = data;
             _poolCollection = poolCollection;
-            _weapon.Initialize(_defenderData.WeaponData,_poolCollection);
+            _weapon.Initialize(_defenderData.WeaponData, _poolCollection);
         }
 
         public void AddTarget(Transform target)
@@ -50,8 +52,7 @@ namespace Defenders
         {
             transform.position = position;
         }
-
-
+        
         public void MakeTransparent()
         {
             _materialChanger.MakeTransparent();
@@ -61,10 +62,15 @@ namespace Defenders
         {
             _materialChanger.MakeOpaque();
         }
-        
+
         public void ReturnToPool()
         {
             Pool.Return(this);
+        }
+
+        public bool IsTrackingEnemy(Transform enemy)
+        {
+            return _weapon.HasTarget(enemy);
         }
     }
 

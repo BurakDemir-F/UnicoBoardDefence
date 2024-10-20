@@ -10,5 +10,6 @@ namespace GamePlay.Map.MapGrid
         void Place(DefenderArea area,DefenceItemBase defenceItem);
         HashSet<GameArea> GetInRangeAreas(DefenderArea placedArea,DefenderData defenderData);
         void IndicateInRangeAreas(HashSet<GameArea> inRangeAreas);
+        bool IsPlaceable(DefenderArea area);
     }
 }

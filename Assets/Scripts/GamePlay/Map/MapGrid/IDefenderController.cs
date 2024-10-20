@@ -14,5 +14,6 @@ namespace GamePlay.Map.MapGrid
         void HandleEnemyAreaEnter(GameArea area, Transform enemy);
         DefenceItemBase CreateDefender(DefenderType data);
         void UpdateVisibility(DefenceItemBase defenceItem,bool shouldBeTransparent);
+        void UnTrackEnemy(Transform enemyTransform);
     }
 }

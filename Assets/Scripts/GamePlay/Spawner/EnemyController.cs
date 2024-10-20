@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using GamePlay.Areas;
 using GamePlay.Enemies;
 using GamePlay.Map;
@@ -17,12 +18,14 @@ namespace GamePlay.Spawner
         private Dictionary<EnemyBase, AreaBase> _enemyAreaDict = new();
         public Dictionary<EnemyBase, AreaBase> EnemyAreaDictionary => _enemyAreaDict;
 
+        public event Action<EnemyBase> EnemyDeath; 
         private void Awake()
         {
             _map.AreaTriggerEntered += OnAreaEnter;
             _map.AreaTriggerExited += OnAreaExit;
             _enemySpawner.EnemySpawned += OnEnemySpawned;
             _eventBus.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _eventBus.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
         }
 
         private void OnDestroy()
@@ -30,6 +33,8 @@ namespace GamePlay.Spawner
             _enemySpawner.EnemySpawned -= OnEnemySpawned;
             _map.AreaTriggerEntered -= OnAreaEnter;
             _map.AreaTriggerExited -= OnAreaExit;
+            _eventBus.UnSubscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _eventBus.UnSubscribe(GamePlayEvent.LevelFail,OnLevelEnd);
         }
 
         public void StartEnemySpawn()
@@ -57,6 +62,7 @@ namespace GamePlay.Spawner
             _enemyAreaDict.Remove(enemyBase);
             _spawnedEnemies.Remove(enemyBase);
             enemyBase.ReturnToPool();
+            EnemyDeath?.Invoke(enemyBase);
         }
         
         private void OnAreaExit(ITriggerInfo info)
@@ -69,6 +75,8 @@ namespace GamePlay.Spawner
             {
                 spawnedEnemy.ReturnToPool();
             }
+            
+            _spawnedEnemies.Clear();
         }
     }
 

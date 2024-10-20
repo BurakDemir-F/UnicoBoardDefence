@@ -11,12 +11,15 @@ public class DefenderData
     [SerializeField] private float _buildTime;
     [SerializeField] private string _poolKey;
     [SerializeField] private WeaponData _weaponData;
+    [SerializeField] private Sprite _visual;
     public DefenderType DefenderType => _defenderType;
     public int Range => _range;
     public Direction Direction => _direction;
     public float BuildTime => _buildTime;
     public string PoolKey => _poolKey;
     public WeaponData WeaponData => _weaponData;
+    public Sprite Visual => _visual;
+
 }
 
 [System.Serializable]

@@ -87,6 +87,7 @@ namespace GamePlay.Spawner
             var positionY = _heightTransform.position.y;
             var startPosition = spawnArea.CenterPosition.SetY(positionY); 
             enemy.Position = startPosition;
+            enemy.transform.SetParent(transform);
             var destination = _destinationProvider.GetDestination(spawnArea, _map);
             destination = destination.SetY(positionY);
             var enemyData = _enemyData.EnemyProperties[enemyType];

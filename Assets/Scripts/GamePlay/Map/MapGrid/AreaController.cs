@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Defenders;
 using GamePlay.Areas;
 using General;
@@ -8,9 +9,22 @@ namespace GamePlay.Map.MapGrid
 {
     public class AreaController : MonoBehaviour,IAreaController
     {
+        [SerializeField] private GamePlayEventBus _eventBus;
         private IMap _map;
         private HashSet<DefenderArea> _placedAreas = new();
-        
+
+        private void Awake()
+        {
+            _eventBus.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _eventBus.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+        }
+
+        private void OnDestroy()
+        {
+            _eventBus.UnSubscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _eventBus.UnSubscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+        }
+
         public void Initialize(IMap map)
         {
             _map = map;
@@ -82,6 +96,17 @@ namespace GamePlay.Map.MapGrid
                 }
             }
             return inRangeAreas;
+        }
+        
+        private void OnLevelEnd(IEventInfo eventInfo)
+        {
+            foreach (var defenderArea in _placedAreas)
+            {
+                defenderArea.RemovePlacement();
+                defenderArea.ReturnToPool();
+            }
+            
+            _placedAreas.Clear();
         }
     }
 }

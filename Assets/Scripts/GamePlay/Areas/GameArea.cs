@@ -1,4 +1,7 @@
-﻿namespace GamePlay.Areas
+﻿using System;
+using UnityEngine;
+
+namespace GamePlay.Areas
 {
     public class GameArea : AreaBase
     {
@@ -9,6 +12,25 @@
         {
             base.OnGetFromPool();
             _areaIndicator = GetComponent<IAreaIndicator>();
+        }
+
+        private bool _isGizmoDrawing;
+        public void DrawGizmo()
+        {
+            _isGizmoDrawing = true;
+        }
+
+        public void CloseGizmo()
+        {
+            _isGizmoDrawing = false;
+        }
+
+        private void OnDrawGizmos()
+        {
+            if(!_isGizmoDrawing)
+                return;
+            
+            Gizmos.DrawCube(CenterPosition,Vector3.one);
         }
     }
 }

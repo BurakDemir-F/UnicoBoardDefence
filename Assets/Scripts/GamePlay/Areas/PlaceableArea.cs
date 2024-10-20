@@ -12,5 +12,11 @@ namespace GamePlay.Areas
             PlacedItem = item;
             IsPlaced = true;
         }
+
+        public void RemovePlacement()
+        {
+            PlacedItem = null;
+            IsPlaced = false;
+        }
     }
 }
