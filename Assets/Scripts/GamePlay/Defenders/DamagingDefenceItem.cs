@@ -2,9 +2,6 @@
 {
     public class DamagingDefenceItem : DefenceItemBase
     {
-        protected override void HandleTargets()
-        {
-            
-        }
+        
     }
 }

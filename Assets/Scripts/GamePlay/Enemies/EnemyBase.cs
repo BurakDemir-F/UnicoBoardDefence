@@ -1,4 +1,5 @@
 ﻿using System;
+using General;
 using General.Pool.System;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -7,7 +8,7 @@ namespace GamePlay.Enemies
 {
     public class EnemyBase : MonoBehaviour, IPoolObject
     {
-        private IMovementBehaviour _movementBehaviour;
+        private IMovementBehaviour _speedMovementBehaviour;
         private IHealthBehaviour _healthBehaviour;
         public string Key { get; set; }
         public IPool Pool { get; set; }
@@ -24,7 +25,7 @@ namespace GamePlay.Enemies
         public void OnGetFromPool()
         {
             gameObject.SetActive(true);
-            _movementBehaviour = GetComponent<IMovementBehaviour>();
+            _speedMovementBehaviour = GetComponent<IMovementBehaviour>();
             _healthBehaviour = GetComponent<IHealthBehaviour>();
             _healthBehaviour.Death += OnDead;
         }
@@ -39,7 +40,7 @@ namespace GamePlay.Enemies
         {
             var health = enemyData.Health;
             _healthBehaviour.InitializeHealthBehaviour(health,health);
-            _movementBehaviour.Move(targetPos,enemyData.Speed);
+            _speedMovementBehaviour.Move(targetPos,enemyData.Speed);
         }
 
         private void OnDead()

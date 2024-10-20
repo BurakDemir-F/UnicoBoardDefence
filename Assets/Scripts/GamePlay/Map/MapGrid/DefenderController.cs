@@ -30,7 +30,7 @@ namespace GamePlay.Map.MapGrid
             var data = _defenderItemDatas.DefenderItemProperties[type];
             var defender = _poolCollection.Get<DefenceItemBase>(data.PoolKey);
             defender.transform.SetParent(transform);
-            defender.SetData(data);
+            defender.Initialize(data,_poolCollection);
             _defenders.Add(defender);
             return defender;
         }

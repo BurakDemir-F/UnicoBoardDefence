@@ -73,3 +73,9 @@ MonoBehaviour:
     PoolKey: RangerDefenceItem
     Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
       type: 3}
+  - PoolObjectPrefab: {fileID: 6696924686406563963, guid: 71073c13f890e394785ca1851991a44f,
+      type: 3}
+    DefaultCapacity: 10
+    PoolKey: Bullet
+    Creator: {fileID: 1315751985517403594, guid: dd559b2b3136e8f4b9214ca4ac1052d8,
+      type: 3}

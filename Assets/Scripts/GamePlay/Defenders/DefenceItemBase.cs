@@ -6,22 +6,21 @@ namespace Defenders
 {
     public abstract class DefenceItemBase : MonoBehaviour,IPoolObject,IAreaPlaceable
     {
+        private Weapon _weapon;
         public DefenderData DefenderData => _defenderData;
         public string Key { get; set; }
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
-
-        protected DefenderData _defenderData;
-        protected HashSet<Transform> _targets;
-        
-        private IMaterialChanger _materialChanger;
-
         public DefenceItemBase DefenceItem => this;
+        
+        protected DefenderData _defenderData;
+        private IMaterialChanger _materialChanger;
+        private IPoolCollection _poolCollection;
 
         public void OnGetFromPool()
         {
-            _targets = new HashSet<Transform>();
             _materialChanger = GetComponent<IMaterialChanger>();
+            _weapon = GetComponent<Weapon>();
             gameObject.SetActive(true);
         }
 
@@ -30,30 +29,28 @@ namespace Defenders
             gameObject.SetActive(false);
         }
 
+        public void Initialize(DefenderData data,IPoolCollection poolCollection)
+        {
+            _defenderData = data;
+            _poolCollection = poolCollection;
+            _weapon.Initialize(_defenderData.WeaponData,_poolCollection);
+        }
+
         public void AddTarget(Transform target)
         {
-            _targets.Add(target);
-            HandleTargets();
+            _weapon.AddTarget(target);
         }
 
         public void RemoveTarget(Transform target)
         {
-            _targets.Remove(target);
-            HandleTargets();
+            _weapon.RemoveTarget(target);
         }
 
-        protected abstract void HandleTargets();
-        
         public void Place(Vector3 position)
         {
             transform.position = position;
         }
 
-
-        public void SetData(DefenderData data)
-        {
-            _defenderData = data;
-        }
 
         public void MakeTransparent()
         {

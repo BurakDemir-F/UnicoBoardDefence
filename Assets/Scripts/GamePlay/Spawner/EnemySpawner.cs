@@ -84,9 +84,11 @@ namespace GamePlay.Spawner
         {
             var key = _enemyData.EnemyProperties[enemyType].PoolKey;
             var enemy = _poolCollection.Get<EnemyBase>(key);
-            var startPosition = spawnArea.CenterPosition.SetY(_heightTransform.position.y); 
+            var positionY = _heightTransform.position.y;
+            var startPosition = spawnArea.CenterPosition.SetY(positionY); 
             enemy.Position = startPosition;
             var destination = _destinationProvider.GetDestination(spawnArea, _map);
+            destination = destination.SetY(positionY);
             var enemyData = _enemyData.EnemyProperties[enemyType];
             enemy.ActivateEnemy(enemyData,destination);
             EnemySpawned?.Invoke(enemy);

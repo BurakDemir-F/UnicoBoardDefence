@@ -29,24 +29,33 @@ MonoBehaviour:
     isModifiable: 0
     keys: 020000000300000001000000
     values:
-    - _defenderType: 0
+    - _defenderType: 2
       _range: 4
       _direction: 1
-      _damage: 3
-      _attackInterval: 3
       _buildTime: 0.5
       _poolKey: RangerDefenceItem
-    - _defenderType: 0
+      _weaponData:
+        _damage: 3
+        _attackInterval: 3
+        _bulletKey: Bullet
+        _bulletSpeed: 10
+    - _defenderType: 3
       _range: 2
       _direction: 1
-      _damage: 5
-      _attackInterval: 4
       _buildTime: 0.5
       _poolKey: AverageDefenceItem
-    - _defenderType: 0
+      _weaponData:
+        _damage: 5
+        _attackInterval: 4
+        _bulletKey: Bullet
+        _bulletSpeed: 10
+    - _defenderType: 1
       _range: 1
       _direction: 5
-      _damage: 5
-      _attackInterval: 5
       _buildTime: 0.5
       _poolKey: DamagingDefenceItem
+      _weaponData:
+        _damage: 10
+        _attackInterval: 5
+        _bulletKey: Bullet
+        _bulletSpeed: 10

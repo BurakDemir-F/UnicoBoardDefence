@@ -1,6 +1,7 @@
 ﻿using GamePlay.Areas;
 using GamePlay.Map.MapGrid;
 using UnityEngine;
+using Utilities;
 
 namespace GamePlay.Enemies
 {
