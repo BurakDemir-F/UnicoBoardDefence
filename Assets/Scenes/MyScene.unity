@@ -7344,7 +7344,7 @@ MonoBehaviour:
   _stateData:
     ShouldFinish: 0
   _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
-  _winUI: {fileID: 0}
+  _winUI: {fileID: 801930846}
   _uiShowDuration: 2
 --- !u!114 &615509321
 MonoBehaviour:
@@ -9789,6 +9789,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemySpawner: {fileID: 1502549942}
   _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
+  _itemActionsEventBus: {fileID: 11400000, guid: e40bd51e4284aa540a757849d77f03a6,
+    type: 2}
   _map: {fileID: 11400000, guid: 17dbc06821b6d194ab7f90328130327f, type: 2}
 --- !u!4 &827789655
 Transform:

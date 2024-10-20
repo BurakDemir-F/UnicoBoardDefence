@@ -13,6 +13,12 @@ namespace GamePlay.Areas
             IsPlaced = true;
         }
 
+        public override void OnReturnedToPool()
+        {
+            base.OnReturnedToPool();
+            RemovePlacement();
+        }
+
         public void RemovePlacement()
         {
             PlacedItem = null;

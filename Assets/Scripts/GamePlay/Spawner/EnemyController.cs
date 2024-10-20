@@ -7,6 +7,7 @@ using GamePlay.Map;
 using GamePlay.Map.MapGrid;
 using General;
 using UnityEngine;
+using Utilities;
 
 namespace GamePlay.Spawner
 {
@@ -14,12 +15,13 @@ namespace GamePlay.Spawner
     {
         [SerializeField] private EnemySpawner _enemySpawner;
         [SerializeField] private GamePlayEventBus _eventBus;
+        [SerializeField] private ItemActionsEventBus _itemActionsEventBus; 
         [SerializeField] private MapSO _map;
         
         private HashSet<EnemyBase> _spawnedEnemies = new();
         private Dictionary<EnemyBase, AreaBase> _enemyAreaDict = new();
         public Dictionary<EnemyBase, AreaBase> EnemyAreaDictionary => _enemyAreaDict;
-
+        private EnemyCountInfo _countInfo;        
         public event Action<EnemyBase> EnemyDeath; 
         private void Awake()
         {
@@ -46,6 +48,7 @@ namespace GamePlay.Spawner
 
         public void StartEnemySpawn()
         {
+            _countInfo.AllEnemies = _enemySpawner.GetEnemyCount();
             _enemySpawner.StartRandomSpawning();
         }
 
@@ -68,8 +71,16 @@ namespace GamePlay.Spawner
         {
             _enemyAreaDict.Remove(enemyBase);
             _spawnedEnemies.Remove(enemyBase);
+            enemyBase.EnemyDeath -= OnEnemyDeath;
             enemyBase.ReturnToPool();
             EnemyDeath?.Invoke(enemyBase);
+
+            _countInfo.DeadEnemies++;
+            if (_countInfo.IsAllDead)
+            {
+                _countInfo.Reset();
+                _itemActionsEventBus.Publish(ItemActions.AllEnemiesDead,null);
+            }
         }
         
         private void OnAreaExit(ITriggerInfo info)
@@ -85,6 +96,20 @@ namespace GamePlay.Spawner
             }
             
             _spawnedEnemies.Clear();
+        }
+        
+        private struct EnemyCountInfo
+        {
+            public int DeadEnemies;
+            public int AllEnemies;
+
+            public bool IsAllDead => DeadEnemies == AllEnemies;
+            
+            public void Reset()
+            {
+                DeadEnemies = 0;
+                AllEnemies = 0;
+            }
         }
     }
 

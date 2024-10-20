@@ -33,6 +33,7 @@ namespace GamePlay.GamePlayStates
             _enemyController.Initialize(map,enemyData);
             _mapController.Initialize(map,_poolCollection);
             _enemyController.StartEnemySpawn();
+            _eventBus.Publish(GamePlayEvent.MapCreated,new MapCreatedEventInfo(map));
             _onStateCompleted?.Invoke(this);
         }
     }

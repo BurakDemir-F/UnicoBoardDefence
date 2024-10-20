@@ -95,7 +95,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdaed77f8cca4740ad3110082dfa2e70, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _defenderArea: {fileID: 4882459079464592435}
   _selectionUI: {fileID: 5755391127562715774}
+  _level: {fileID: 11400000, guid: b9be9c841d3b294488aba8a128ad67eb, type: 2}
+  _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
+  _xDistanceToCamera: 1
 --- !u!1 &5042994829041002231
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,17 +462,17 @@ PrefabInstance:
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.38
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 2.53
+      value: 4.72
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -2.24
+      value: -0.7
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}

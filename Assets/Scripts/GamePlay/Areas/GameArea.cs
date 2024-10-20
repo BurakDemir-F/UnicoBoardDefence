@@ -14,6 +14,12 @@ namespace GamePlay.Areas
             _areaIndicator = GetComponent<IAreaIndicator>();
         }
 
+        public override void OnReturnedToPool()
+        {
+            base.OnReturnedToPool();
+            _areaIndicator.DeactivateIndicator();   
+        }
+
         private bool _isGizmoDrawing;
         public void DrawGizmo()
         {

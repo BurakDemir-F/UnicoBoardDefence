@@ -17,7 +17,7 @@ namespace GamePlay.GamePlayStates.LevelWin
             base.Destruct();
             _eventBus.UnSubscribe(ItemActions.AllEnemiesDead,OnAllEnemiesDead);
         }
-
+    
         private void OnAllEnemiesDead(IEventInfo eventInfo)
         {
             InvokeConditionMetEvent();

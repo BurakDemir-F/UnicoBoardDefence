@@ -18,6 +18,8 @@ namespace GamePlay.Map.MapGrid
         private IMap _map;
         private IAreaController _areaController;
         private IDefenderController _defenderController;
+
+        private bool _isInitialized;
         
         private void Awake()
         {
@@ -29,6 +31,7 @@ namespace GamePlay.Map.MapGrid
 
         public void Initialize(IMap map,IPoolCollection poolCollection)
         {
+            _isInitialized = true;
             _map = map;
             _map.AreaTriggerEntered += OnAreaTriggerEnter;
             _map.AreaTriggerExited += OnAreaTriggerExit;
@@ -38,10 +41,14 @@ namespace GamePlay.Map.MapGrid
 
         private void OnDestroy()
         {
-            _map.AreaTriggerEntered -= OnAreaTriggerEnter;
-            _map.AreaTriggerExited -= OnAreaTriggerExit;
             _enemyController.EnemyDeath -= OnEnemyDeath;
             _itemActions.UnSubscribe(ItemActions.DefenceItemSelected,OnDefenceItemSelected);
+            
+            if(!_isInitialized)
+                return;
+            
+            _map.AreaTriggerEntered -= OnAreaTriggerEnter;
+            _map.AreaTriggerExited -= OnAreaTriggerExit;
         }
 
         private void OnDefenceItemSelected(IEventInfo eventInfo)

@@ -21,6 +21,7 @@ namespace Defenders
             gameObject.SetActive(true);
             _movementBehaviour = GetComponent<IMovementBehaviour>();
             _bulletTrigger.Hit += HandleHit;
+            _bulletTrigger.Activate();
             _movementBehaviour.OnDestinationReached += OnDestinationReached;
         }
 
@@ -38,6 +39,7 @@ namespace Defenders
 
         private void HandleHit(IDamageable damageable)
         {
+            _bulletTrigger.Deactivate();
             _movementBehaviour.Stop();
             Hit?.Invoke(damageable,this);
         }

@@ -1,5 +1,4 @@
-﻿using System;
-using GamePlay;
+﻿using GamePlay;
 using General;
 using UnityEngine;
 
@@ -33,8 +32,7 @@ namespace Controllers
         {
             
         }
-
-
+        
         public int GetLevel()
         {
             return PlayerPrefs.GetInt(_levelPrefKey);
@@ -48,12 +46,11 @@ namespace Controllers
         public void SetLevel(int level)
         {
             var totalLevelCount = _levels.LevelData.DefenderEnemyCounts.Count;
-            var currentLevel = level;
-            if (totalLevelCount - 1 > level)
+            if (level > totalLevelCount - 1)
             {
-                currentLevel = totalLevelCount - 1;
+                level = totalLevelCount - 1;
             }
-            PlayerPrefs.SetInt(_levelPrefKey,currentLevel);
+            PlayerPrefs.SetInt(_levelPrefKey,level);
         }
     }
 

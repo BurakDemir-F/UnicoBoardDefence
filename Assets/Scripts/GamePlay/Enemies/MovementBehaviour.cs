@@ -42,7 +42,7 @@ namespace GamePlay.Enemies
         {
             if(!_movementTemp.IsMoving)
                 return;
-
+            
             var tValue = _movementTemp.Counter / _movementTemp.Duration;
             var nextPos = Vector3.Lerp(_defaultPos, _movementTemp.Target, tValue);
             transform.position = nextPos;

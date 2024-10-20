@@ -15,9 +15,16 @@ namespace Defenders.UI
         [SerializeField] private List<ItemUI> _itemUis;
         [SerializeField] private ItemActionsEventBus _itemActions;
         [SerializeField] private GameItemsSO _gameItems;
-        [SerializeField] private DefenderArea _defenderArea;
         [SerializeField] private Canvas _canvas;
         [SerializeField] private Button _closeButton;
+        
+        private DefenderArea _defenderArea;
+
+        public void Initialize(DefenderArea area)
+        {
+            _defenderArea = area;
+        }
+        
         private void Awake()
         {
             foreach (var itemUI in _itemUis)
@@ -37,6 +44,11 @@ namespace Defenders.UI
             }
             _itemActions.UnSubscribe(ItemActions.RemainingDefenceItemsChanged,OnRemainingItemsChanged);
             _closeButton.onClick.RemoveListener(OnCloseButtonClick);
+        }
+
+        private void OnDisable()
+        {
+            Deactivate();
         }
 
         public void Activate()

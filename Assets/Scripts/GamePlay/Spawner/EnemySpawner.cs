@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Linq;
 using DefaultNamespace;
 using Enemies;
 using GamePlay.Areas;
@@ -54,14 +55,20 @@ namespace GamePlay.Spawner
 
         public void StartRandomSpawning()
         {
-            "spawn started".PrintColored(Color.green);
             _spawnInfo.IsSpawning = true;
             _spawnCor = StartCoroutine(SpawnCor());
         }
 
+        public int GetEnemyCount()
+        {
+            var count = 0;
+            foreach (var (enemyType, enemyCount) in _currentLevel.Enemies)
+                count += enemyCount;
+            return count;
+        }
+
         public void StopSpawning()
         {
-            $"spawn stop, is spawn cor null: {_spawnCor == null}".PrintColored(Color.green);
             _spawnInfo.Reset();
             if (_spawnCor == null)
             {
@@ -95,7 +102,7 @@ namespace GamePlay.Spawner
             var destination = _destinationProvider.GetDestination(spawnArea, _map);
             destination = destination.SetY(positionY);
             var enemyData = _enemyData.EnemyProperties[enemyType];
-            enemy.ActivateEnemy(enemyData,startPosition ,destination);
+            enemy.ActivateEnemy(enemyData, startPosition, destination,_map.GetOneAreaLength());
             EnemySpawned?.Invoke(enemy);
         }
 
