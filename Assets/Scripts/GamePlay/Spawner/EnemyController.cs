@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using DefaultNamespace;
 using GamePlay.Areas;
 using GamePlay.Enemies;
 using GamePlay.Map;
+using GamePlay.Map.MapGrid;
 using General;
 using UnityEngine;
 
@@ -26,6 +28,11 @@ namespace GamePlay.Spawner
             _enemySpawner.EnemySpawned += OnEnemySpawned;
             _eventBus.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
             _eventBus.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+        }
+
+        public void Initialize(IMap map,IEnemyProperties enemyProperties)
+        {   
+            _enemySpawner.Initialize(map,enemyProperties);
         }
 
         private void OnDestroy()
@@ -71,6 +78,7 @@ namespace GamePlay.Spawner
 
         private void OnLevelEnd(IEventInfo eventInfo)
         {
+            _enemySpawner.StopSpawning();
             foreach (var spawnedEnemy in _spawnedEnemies)
             {
                 spawnedEnemy.ReturnToPool();

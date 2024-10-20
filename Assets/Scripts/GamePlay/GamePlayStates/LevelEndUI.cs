@@ -13,7 +13,7 @@ namespace GamePlay.GamePlayStates
         
         public void Deactivate()
         {
-            _levelEndText.gameObject.SetActive(true);
+            _levelEndText.gameObject.SetActive(false);
         }
 
     }

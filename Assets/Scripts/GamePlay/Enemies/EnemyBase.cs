@@ -36,11 +36,11 @@ namespace GamePlay.Enemies
             _healthBehaviour.Death -= OnDead;
         }
 
-        public void ActivateEnemy(EnemyData enemyData ,Vector3 targetPos)
+        public void ActivateEnemy(EnemyData enemyData ,Vector3 startPos,Vector3 targetPos)
         {
             var health = enemyData.Health;
             _healthBehaviour.InitializeHealthBehaviour(health,health);
-            _speedMovementBehaviour.Move(targetPos,enemyData.Speed);
+            _speedMovementBehaviour.Move(startPos,targetPos,enemyData.Speed);
         }
 
         private void OnDead()
@@ -50,6 +50,11 @@ namespace GamePlay.Enemies
         public void ReturnToPool()
         {
             Pool.Return(this);
+        }
+
+        private void OnEnable()
+        {
+            "Enemy on enable".PrintColored(Color.red,gameObject);
         }
     }
 }

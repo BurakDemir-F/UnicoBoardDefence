@@ -11,7 +11,7 @@ namespace GamePlay.GamePlayStates
         public override void Construct()
         {
             base.Construct();
-            _eventBus.Subscribe(GamePlayEvent.LevelStarted,OnLevelStarted);
+            _eventBus.Subscribe(GamePlayEvent.LevelStarted,OnLevelStarted);     
         }
 
         public override void Destruct()
@@ -22,7 +22,6 @@ namespace GamePlay.GamePlayStates
 
         private void OnLevelStarted(IEventInfo eventInfo)
         {
-            "On Level started catched from level start condition.".PrintColored(Color.white);
             InvokeConditionMetEvent();
         }
     }

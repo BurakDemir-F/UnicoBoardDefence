@@ -1,46 +1,53 @@
-﻿using GamePlay;
+﻿using System;
+using GamePlay;
+using GamePlay.GamePlayStates;
 using GamePlay.Map;
-using GamePlay.Map.MapGrid;
-using GamePlay.Spawner;
-using General.Pool.System;
+using General;
 using UnityEngine;
-using Utilities;
 
 namespace Controllers
 {
     public class GameController : MonoBehaviour
     {
-        [SerializeField] private EnemySpawner _spawner;
-        [SerializeField] private LevelDataProvider _dataProvider;
-        [SerializeField] private MapBuilder _mapBuilder;
+        [SerializeField] private LevelController _levelController;
+        [SerializeField] private PlayUI _playUI;
         [SerializeField] private GamePlayEventBus _eventBus;
-        [SerializeField] private MapController _mapController;
-        [SerializeField] private MasterPool _poolCollection;
+        [SerializeField] private LevelDataProvider _dataProvider;
+
         private void Start()
         {
-            StartGame();
+            _playUI.PlayButtonClicked += StartLevel;
+            _eventBus.Subscribe(GamePlayEvent.LevelEnd,OnLevelEnd);
+            ShowPlayGame();
         }
 
-        private void StartGame()
+        private void OnDestroy()
         {
-            var mapData = _dataProvider.GetMapData();
-            _mapBuilder.BuildMap(mapData, OnMapBuild);
+            _playUI.PlayButtonClicked -= StartLevel;
+            _eventBus.UnSubscribe(GamePlayEvent.LevelEnd,OnLevelEnd);
         }
 
-        private void OnMapBuild(IMap map)
+        private void StartLevel()
         {
-            var enemyData = _dataProvider.GetEnemyData();
+            _playUI.Deactivate();
             var levelData = _dataProvider.GetLevel();
-            _spawner.Initialize(map,levelData,enemyData);
-            _eventBus.Publish(GamePlayEvent.LevelSelected,new LevelSelectedEventInfo(2,levelData.DefenderEnemyCounts[2]));
+            var currentLevel = _levelController.GetLevel();
+            _eventBus.Publish(GamePlayEvent.LevelSelected,
+                new LevelSelectedEventInfo(currentLevel,
+                    levelData.DefenderEnemyCounts[currentLevel]));
             _eventBus.Publish(GamePlayEvent.LevelStarted,null);
-            _mapController.Initialize(map,_poolCollection);
         }
-    }
-    
-    public interface IUserDataController
-    {
-        int GetUserLevel();
-        void SetUserLevel();
+
+        private void ShowPlayGame()
+        {
+            _playUI.Activate();
+            _playUI.ShowLevel(_levelController.GetLevelForDisplay());
+        }
+
+        private void OnLevelEnd(IEventInfo eventInfo)
+        {
+            ShowPlayGame();
+        }
+
     }
 }

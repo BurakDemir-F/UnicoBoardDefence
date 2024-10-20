@@ -15,6 +15,15 @@ namespace GamePlay.Enemies
             transform.position = position;
         }
 
+        public void Move(Vector3 start,Vector3 target, float speed)
+        {
+            _defaultPos = start;
+            _movementTemp.Target = target;
+            _movementTemp.Speed = speed;
+            _movementTemp.IsMoving = true;
+            _movementTemp.Duration = Vector3.Magnitude(target - _defaultPos) / speed;
+        }
+
         public void Move(Vector3 target, float speed)
         {
             _defaultPos = transform.position;

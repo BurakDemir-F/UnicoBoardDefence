@@ -8,6 +8,7 @@
         TutorialEnd,
         LevelStarted,
         LevelWin,
-        LevelFail
+        LevelFail,
+        LevelEnd
     }
 }

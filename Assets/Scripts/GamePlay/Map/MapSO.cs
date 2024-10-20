@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GamePlay.Areas;
 using GamePlay.Map.MapGrid;
@@ -12,7 +13,7 @@ namespace GamePlay.Map
     {
         public IGrid Grid { get; private set; }
         public List<SpawnArea> SpawnAreas { get; private set; }
-        public List<NonDefenderArea> EmptyAreas { get; private set; }
+        public List<NonDefenderArea> NonDefenderAreas { get; private set; }
         public List<DefenderArea> DefenderAreas { get; private set; }
         public List<PlayerLooseArea> PlayerLooseAreas { get; private set; }
 
@@ -29,7 +30,7 @@ namespace GamePlay.Map
         {
             Grid = grid;
             SpawnAreas = spawnAreas;
-            EmptyAreas = emptyAreas;
+            NonDefenderAreas = emptyAreas;
             DefenderAreas = defenderAreas;
             PlayerLooseAreas = playerLooseAreas;
             _triggerBoxes = new HashSet<ITriggerBox>();
@@ -64,6 +65,26 @@ namespace GamePlay.Map
         private void OnAreaTriggerExit(ITriggerInfo info)
         {
             AreaTriggerExited?.Invoke(info);
+        }
+
+        public IEnumerator<AreaBase> GetEnumerator()
+        {
+            foreach (var spawnArea in SpawnAreas)
+                yield return spawnArea;
+
+            foreach (var looseArea in PlayerLooseAreas)
+                yield return looseArea;
+            
+            foreach (var defenderArea in DefenderAreas)
+                yield return defenderArea;
+            
+            foreach (var nonDefenderArea in NonDefenderAreas)
+                yield return nonDefenderArea;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return GetEnumerator();
         }
     }
 }

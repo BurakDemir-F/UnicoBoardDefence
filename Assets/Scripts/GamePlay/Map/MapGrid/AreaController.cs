@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Defenders;
 using GamePlay.Areas;
@@ -100,13 +101,18 @@ namespace GamePlay.Map.MapGrid
         
         private void OnLevelEnd(IEventInfo eventInfo)
         {
-            foreach (var defenderArea in _placedAreas)
-            {
-                defenderArea.RemovePlacement();
-                defenderArea.ReturnToPool();
-            }
-            
+            StartCoroutine(ReturnToPoolCor());
             _placedAreas.Clear();
+        }
+
+        private IEnumerator ReturnToPoolCor()
+        {
+            var wait = new WaitForSeconds(0.05f);
+            foreach (var areaBase in _map)
+            {
+                areaBase.ReturnToPool();
+                yield return wait;
+            }
         }
     }
 }

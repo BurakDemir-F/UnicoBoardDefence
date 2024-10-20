@@ -5,11 +5,11 @@ using General.GridSystem;
 
 namespace GamePlay.Map.MapGrid
 {
-    public interface IMap
+    public interface IMap : IEnumerable<AreaBase>
     {
         IGrid Grid { get; }
         List<SpawnArea> SpawnAreas { get; }
-        List<NonDefenderArea> EmptyAreas { get; }
+        List<NonDefenderArea> NonDefenderAreas { get; }
         List<DefenderArea> DefenderAreas { get; }
         List<PlayerLooseArea> PlayerLooseAreas { get; }
 

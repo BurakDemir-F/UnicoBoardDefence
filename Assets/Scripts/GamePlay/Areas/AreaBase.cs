@@ -37,7 +37,7 @@ namespace GamePlay.Areas
 
         public virtual void OnReturnedToPool()
         {
-            
+            gameObject.SetActive(false);
         }
 
         public void AnimatePlacing(Action onComplete)
