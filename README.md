@@ -3,4 +3,4 @@ I made some additions to the test scenario. The test scenario does not have a le
 Level data can be found in Assets/ScriptableData/Level.
 Enemy and defender properties can be found in Assets/SriptableData/GameItems.
 
-<a href="https://drive.google.com/file/d/1yasVlo6Ku-ZM_RWI2JqQ64P0UEE6GSrU/view?usp=sharing">Test case play video:</a>
+<a href="https://drive.google.com/file/d/1yasVlo6Ku-ZM_RWI2JqQ64P0UEE6GSrU/view?usp=sharing">Test case play video</a>
