@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using GamePlay;
 using GamePlay.Areas;
 using GamePlay.Areas.Trigger;
 using GamePlay.Enemies;
@@ -10,6 +9,7 @@ using GamePlay.Map.MapGrid;
 using GamePlay.Spawner;
 using General;
 using UnityEngine;
+using Utilities;
 
 namespace Controllers
 {
@@ -60,7 +60,7 @@ namespace Controllers
                 return;
             var enemy = info.TriggerItem.TriggerObject.GetComponent<EnemyBase>();
             var area = info.TriggeredArea;
-            _enemyAreaDict.TryAdd(enemy, area);
+            _enemyAreaDict.AddOrUpdate(enemy, area);
         }
 
         private void OnEnemySpawned(EnemyBase enemyBase)

@@ -19,7 +19,7 @@ namespace GamePlay.Map
         public List<DefenderArea> DefenderAreas { get; private set; }
         public List<PlayerLooseArea> PlayerLooseAreas { get; private set; }
 
-        private HashSet<ITriggerBox> _triggerBoxes;
+        private HashSet<ITriggerBox> _triggerBoxes = new();
         public event Action<ITriggerInfo> AreaTriggerEntered;
         public event Action<ITriggerInfo> AreaTriggerExited;
 
@@ -38,7 +38,6 @@ namespace GamePlay.Map
             NonDefenderAreas = emptyAreas;
             DefenderAreas = defenderAreas;
             PlayerLooseAreas = playerLooseAreas;
-            _triggerBoxes = new HashSet<ITriggerBox>();
             MapInitialized?.Invoke();
             _isInitialized = true;
         }

@@ -98,8 +98,7 @@ MonoBehaviour:
   _defenderArea: {fileID: 4882459079464592435}
   _selectionUI: {fileID: 5755391127562715774}
   _level: {fileID: 11400000, guid: b9be9c841d3b294488aba8a128ad67eb, type: 2}
-  _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
-  _xDistanceToCamera: 1.3
+  _xDistanceToCamera: 1
 --- !u!1 &5042994829041002231
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +461,7 @@ PrefabInstance:
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0.38
+      value: 0.14
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
@@ -472,32 +471,32 @@ PrefabInstance:
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7
+      value: -2.24
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.7071068
+      value: 0.83570147
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.7071068
+      value: 0.5491841
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 90
+      value: 66.622
       objectReference: {fileID: 0}
     - target: {fileID: 4913607285339801579, guid: b76012aab139fe94086f71b3ad657398,
         type: 3}

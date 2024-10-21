@@ -151,7 +151,7 @@ namespace Controllers
         {
             foreach (var (enemy, area) in _enemyController.EnemyAreaDictionary)
             {
-                if(area.AreaType != AreaType.DefenderArea ||area.AreaType != AreaType.NonDefenderArea)
+                if(area.AreaType != AreaType.DefenderArea && area.AreaType != AreaType.NonDefenderArea)
                     continue;
                 
                 if (area == placedArea)
