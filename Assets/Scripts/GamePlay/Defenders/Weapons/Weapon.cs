@@ -3,7 +3,7 @@ using GamePlay.Enemies;
 using General.Pool.System;
 using UnityEngine;
 
-namespace GamePlay.Defenders.Weapon
+namespace GamePlay.Defenders.Weapons
 {
     public class Weapon : MonoBehaviour
     {
@@ -41,15 +41,16 @@ namespace GamePlay.Defenders.Weapon
             return _targets.Contains(target);
         }
 
-        private void HandleNewTarget(IEnemy target)
+        private void HandleNewTarget(IEnemy enemy)
         {
+            enemy.EnemyDeath += OnEnemyDeath;
             if (!_attackInfo.IsAttacking)
             {
                 _attackInfo.IsAttacking = true;
-                _attackInfo.CurrentTarget = target;
+                _attackInfo.CurrentTarget = enemy;
             }
 
-            _targets.Add(target);
+            _targets.Add(enemy);
         }
 
         private void HandleTargetRemove(IEnemy target)
@@ -105,6 +106,12 @@ namespace GamePlay.Defenders.Weapon
             bullet.Hit -= OnBulletHit;
             bullet.DestinationReached -= OnBulletDestinationReached;
             bullet.ReturnToPool();
+        }
+
+        private void OnEnemyDeath(IEnemy enemy)
+        {
+            enemy.EnemyDeath -= OnEnemyDeath;
+            HandleTargetRemove(enemy);
         }
         
         private struct AttackInfo

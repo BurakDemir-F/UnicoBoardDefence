@@ -4,7 +4,7 @@ using General;
 using General.Pool.System;
 using UnityEngine;
 
-namespace GamePlay.Defenders.Weapon
+namespace GamePlay.Defenders.Weapons
 {
     public class BulletBase : MonoBehaviour, IPoolObject
     {

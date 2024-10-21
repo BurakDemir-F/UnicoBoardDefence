@@ -99,7 +99,7 @@ MonoBehaviour:
   _selectionUI: {fileID: 5755391127562715774}
   _level: {fileID: 11400000, guid: b9be9c841d3b294488aba8a128ad67eb, type: 2}
   _eventBus: {fileID: 11400000, guid: b238c89dc4f154b4fa77b284804f160a, type: 2}
-  _xDistanceToCamera: 1
+  _xDistanceToCamera: 2
 --- !u!1 &5042994829041002231
 GameObject:
   m_ObjectHideFlags: 0

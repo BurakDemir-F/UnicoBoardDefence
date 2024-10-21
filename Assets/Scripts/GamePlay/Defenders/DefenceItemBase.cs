@@ -1,4 +1,5 @@
-﻿using GamePlay.Enemies;
+﻿using GamePlay.Defenders.Weapons;
+using GamePlay.Enemies;
 using General.Pool.System;
 using UnityEngine;
 
@@ -6,7 +7,7 @@ namespace GamePlay.Defenders
 {
     public abstract class DefenceItemBase : MonoBehaviour, IPoolObject, IAreaPlaceable
     {
-        private Weapon.Weapon _weapon;
+        private Weapon _weapon;
         public DefenderData DefenderData => _defenderData;
         public string Key { get; set; }
         public IPool Pool { get; set; }
@@ -20,7 +21,7 @@ namespace GamePlay.Defenders
         public void OnGetFromPool()
         {
             _materialChanger = GetComponent<IMaterialChanger>();
-            _weapon = GetComponent<Weapon.Weapon>();
+            _weapon = GetComponent<Weapon>();
             gameObject.SetActive(true);
         }
 
