@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using DefaultNamespace;
+using GamePlay;
 using GamePlay.Areas;
+using GamePlay.Areas.Trigger;
 using GamePlay.Enemies;
+using GamePlay.EventBus;
 using GamePlay.Map;
 using GamePlay.Map.MapGrid;
+using GamePlay.Spawner;
 using General;
 using UnityEngine;
-using Utilities;
 
-namespace GamePlay.Spawner
+namespace Controllers
 {
     public class EnemyController : MonoBehaviour,IEnemyController
     {
@@ -67,8 +69,9 @@ namespace GamePlay.Spawner
             _spawnedEnemies.Add(enemyBase);
         }
         
-        private void OnEnemyDeath(EnemyBase enemyBase)
+        private void OnEnemyDeath(IEnemy enemy)
         {
+            var enemyBase = (EnemyBase)enemy;
             _enemyAreaDict.Remove(enemyBase);
             _spawnedEnemies.Remove(enemyBase);
             enemyBase.EnemyDeath -= OnEnemyDeath;

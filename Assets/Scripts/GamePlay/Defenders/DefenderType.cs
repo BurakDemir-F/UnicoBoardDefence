@@ -1,4 +1,4 @@
-﻿namespace Defenders
+﻿namespace GamePlay.Defenders
 {
     public enum DefenderType
     {

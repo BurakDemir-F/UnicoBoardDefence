@@ -1,14 +1,18 @@
 ﻿using System.Collections.Generic;
-using Defenders;
-using Defenders.UI;
+using GamePlay;
 using GamePlay.Areas;
+using GamePlay.Areas.Trigger;
+using GamePlay.Defenders;
 using GamePlay.Enemies;
-using GamePlay.Spawner;
+using GamePlay.EventBus;
+using GamePlay.EventBus.Info;
+using GamePlay.Map;
+using GamePlay.Map.MapGrid;
 using General;
 using General.Pool.System;
 using UnityEngine;
 
-namespace GamePlay.Map.MapGrid
+namespace Controllers
 {
     public class MapController : MonoBehaviour
     {
@@ -70,13 +74,15 @@ namespace GamePlay.Map.MapGrid
             {
                 var gameArea = (GameArea)info.TriggeredArea;
                 gameArea.DrawGizmo();
-                HandleEnemyEnter(info.TriggerItem.TriggerObject.transform,gameArea);
+                var enemy = info.TriggerItem.TriggerObject.GetComponent<IEnemy>();
+                HandleEnemyEnter(enemy,gameArea);
                 return;
             }
 
             if (IsEnemy(info))
             {
-                _defenderController.UnTrackEnemy(info.TriggerItem.TriggerObject.transform);
+                var enemy = info.TriggerItem.TriggerObject.GetComponent<IEnemy>();
+                _defenderController.UnTrackEnemy(enemy);
             }
         }
 
@@ -90,7 +96,7 @@ namespace GamePlay.Map.MapGrid
             }
         }
         
-        private void HandleEnemyEnter(Transform enemy, GameArea area)
+        private void HandleEnemyEnter(IEnemy enemy, GameArea area)
         {
             _defenderController.HandleEnemyAreaEnter(area,enemy);
             TryUpdateVisibility(area, false);
@@ -103,7 +109,7 @@ namespace GamePlay.Map.MapGrid
         
         private void OnEnemyDeath(EnemyBase enemy)
         {
-            _defenderController.UnTrackEnemy(enemy.transform);
+            _defenderController.UnTrackEnemy(enemy);
         }
         
         private void TryUpdateVisibility(GameArea area, bool isExit)
@@ -154,7 +160,7 @@ namespace GamePlay.Map.MapGrid
                 var gameArea = (GameArea)area;
                 if (inRangeAreas.Contains(gameArea))
                 {
-                    _defenderController.HandleEnemyAreaEnter(gameArea,enemy.transform);
+                    _defenderController.HandleEnemyAreaEnter(gameArea,enemy);
                 }
             }
         }

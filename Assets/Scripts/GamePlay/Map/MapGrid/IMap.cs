@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using GamePlay.Areas;
+using GamePlay.Areas.Trigger;
 using General.GridSystem;
 using UnityEngine;
 
@@ -14,7 +15,6 @@ namespace GamePlay.Map.MapGrid
         List<DefenderArea> DefenderAreas { get; }
         List<PlayerLooseArea> PlayerLooseAreas { get; }
         float GetOneAreaLength();
-        bool TryGetVisiblePosition(DefenderArea area, out Vector3 visiblePos);
         event Action MapInitialized;
         event Action<ITriggerInfo> AreaTriggerEntered;
         event Action<ITriggerInfo> AreaTriggerExited;

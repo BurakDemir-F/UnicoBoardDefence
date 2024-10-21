@@ -1,12 +1,14 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
-using Defenders;
+using GamePlay;
 using GamePlay.Areas;
+using GamePlay.Defenders;
+using GamePlay.EventBus;
+using GamePlay.Map.MapGrid;
 using General;
 using UnityEngine;
 
-namespace GamePlay.Map.MapGrid
+namespace Controllers
 {
     public class AreaController : MonoBehaviour,IAreaController
     {

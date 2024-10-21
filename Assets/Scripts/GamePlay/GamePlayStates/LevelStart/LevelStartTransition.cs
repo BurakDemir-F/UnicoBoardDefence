@@ -1,4 +1,4 @@
-﻿namespace GamePlay.GamePlayStates
+﻿namespace GamePlay.GamePlayStates.LevelStart
 {
     public class LevelStartTransition : GameStateTransition
     {

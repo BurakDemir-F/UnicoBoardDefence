@@ -2,7 +2,7 @@
 using GamePlay.Enemies;
 using UnityEngine;
 
-namespace Defenders
+namespace GamePlay.Defenders.Weapon
 {
     public class BulletTrigger : MonoBehaviour
     {

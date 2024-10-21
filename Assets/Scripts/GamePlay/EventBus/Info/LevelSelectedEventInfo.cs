@@ -1,6 +1,6 @@
 ﻿using General;
 
-namespace GamePlay
+namespace GamePlay.EventBus.Info
 {
     public struct LevelSelectedEventInfo : IEventInfo
     {

@@ -1,8 +1,8 @@
-﻿using General;
+﻿using GamePlay.EventBus;
+using General;
 using UnityEngine;
-using Utilities;
 
-namespace GamePlay.GamePlayStates
+namespace GamePlay.GamePlayStates.LevelStart
 {
     public class LevelStartCondition : GameStateCondition
     {

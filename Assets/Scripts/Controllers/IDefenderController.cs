@@ -1,19 +1,18 @@
 ﻿using System.Collections.Generic;
-using DefaultNamespace;
-using Defenders;
 using GamePlay.Areas;
+using GamePlay.Defenders;
+using GamePlay.Enemies;
 using General.Pool.System;
-using UnityEngine;
 
-namespace GamePlay.Map.MapGrid
+namespace Controllers
 {
     public interface IDefenderController
     {
         void Initialize(IPoolCollection poolCollection,IDefenderProperties defenderItemDatas);
         void AddAttackableAreas(DefenceItemBase defenceItem, HashSet<GameArea> inRangeAreas);
-        void HandleEnemyAreaEnter(GameArea area, Transform enemy);
+        void HandleEnemyAreaEnter(GameArea area, IEnemy enemy);
         DefenceItemBase CreateDefender(DefenderType data);
         void UpdateVisibility(DefenceItemBase defenceItem,bool shouldBeTransparent);
-        void UnTrackEnemy(Transform enemyTransform);
+        void UnTrackEnemy(IEnemy enemyTransform);
     }
 }

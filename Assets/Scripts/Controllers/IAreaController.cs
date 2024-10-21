@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
-using Defenders;
 using GamePlay.Areas;
+using GamePlay.Defenders;
+using GamePlay.Map.MapGrid;
 
-namespace GamePlay.Map.MapGrid
+namespace Controllers
 {
     public interface IAreaController
     {

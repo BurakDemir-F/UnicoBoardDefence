@@ -1,7 +1,7 @@
 ﻿using GamePlay.Map;
 using UnityEngine;
 
-namespace GamePlay.Areas
+namespace GamePlay.Areas.Trigger
 {
     public class TriggerMapConnector : MonoBehaviour
     {
@@ -17,6 +17,7 @@ namespace GamePlay.Areas
         private void OnDestroy()
         {
             _map.MapInitialized -= MapInitialized;
+            _map.RemoveTriggerBox(_triggerBox);
         }
 
         private void MapInitialized()

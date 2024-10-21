@@ -1,4 +1,4 @@
-﻿namespace GamePlay
+﻿namespace GamePlay.EventBus
 {
     public enum GamePlayEvent
     {

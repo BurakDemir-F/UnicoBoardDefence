@@ -1,4 +1,4 @@
-﻿namespace Enemies
+﻿namespace GamePlay.Enemies
 {
     public enum EnemyType
     {

@@ -1,4 +1,5 @@
 ﻿using GamePlay.Areas;
+using GamePlay.Areas.Trigger;
 using GamePlay.Map;
 using UnityEngine;
 

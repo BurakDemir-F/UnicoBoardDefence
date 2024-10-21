@@ -1,8 +1,7 @@
-﻿using GamePlay.Areas;
-using GamePlay.Enemies;
+﻿using GamePlay.Areas.Trigger;
 using UnityEngine;
 
-namespace Enemies
+namespace GamePlay.Enemies
 {
     public class AreaTriggerItem : MonoBehaviour, ITriggerItem
     {

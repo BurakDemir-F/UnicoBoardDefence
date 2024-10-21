@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
-using Defenders;
+using GamePlay.Defenders;
 using General;
 
-namespace GamePlay.Map.MapGrid
+namespace GamePlay.EventBus.Info
 {
     public struct RemainingItemsInfo : IEventInfo
     {

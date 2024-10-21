@@ -1,7 +1,7 @@
 ﻿using System;
 using General.StateMachines;
 
-namespace GamePlay.GamePlayStates
+namespace GamePlay.GamePlayStates.BlankState
 {
     public class BlankState : GameState
     {

@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace GamePlay.Areas
+namespace GamePlay.Areas.Trigger
 {
     public interface ITriggerItem
     {

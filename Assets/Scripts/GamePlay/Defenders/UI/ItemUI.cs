@@ -3,7 +3,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace Defenders.UI
+namespace GamePlay.Defenders.UI
 {
     [System.Serializable]
     public class ItemUI : MonoBehaviour

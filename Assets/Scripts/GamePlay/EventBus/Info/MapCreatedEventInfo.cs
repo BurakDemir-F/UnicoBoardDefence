@@ -1,7 +1,7 @@
 ﻿using GamePlay.Map.MapGrid;
 using General;
 
-namespace GamePlay.GamePlayStates
+namespace GamePlay.EventBus.Info
 {
     public struct MapCreatedEventInfo : IEventInfo
     {

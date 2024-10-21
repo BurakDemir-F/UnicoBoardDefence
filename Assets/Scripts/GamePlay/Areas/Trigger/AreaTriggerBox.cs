@@ -1,8 +1,7 @@
 ﻿using System;
 using UnityEngine;
-using Utilities;
 
-namespace GamePlay.Areas
+namespace GamePlay.Areas.Trigger
 {
     public class AreaTriggerBox : MonoBehaviour, ITriggerBox
     {

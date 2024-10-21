@@ -1,4 +1,4 @@
-﻿namespace GamePlay.GamePlayStates
+﻿namespace GamePlay.GamePlayStates.BlankState
 {
     public class BlankStateCondition : GameStateCondition
     {

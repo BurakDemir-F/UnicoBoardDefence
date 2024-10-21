@@ -2,11 +2,10 @@
 using General;
 using General.Pool.System;
 using UnityEngine;
-using Utilities;
 
 namespace GamePlay.Enemies
 {
-    public class EnemyBase : MonoBehaviour, IPoolObject
+    public class EnemyBase : MonoBehaviour, IPoolObject, IEnemy
     {
         private IMovementBehaviour _movementBehaviour;
         private IHealthBehaviour _healthBehaviour;
@@ -14,13 +13,15 @@ namespace GamePlay.Enemies
         public IPool Pool { get; set; }
         public GameObject Go => gameObject;
         
-        public event Action<EnemyBase> EnemyDeath; 
+        public event Action<IEnemy> EnemyDeath; 
         
         public Vector3 Position
         {
             get => transform.position;
             set => transform.position = value;
         }
+
+        public Transform Transform => transform;
         
         public void OnGetFromPool()
         {

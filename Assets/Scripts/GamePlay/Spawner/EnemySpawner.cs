@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Collections;
 using System.Linq;
-using DefaultNamespace;
-using Enemies;
 using GamePlay.Areas;
 using GamePlay.Enemies;
+using GamePlay.EventBus;
+using GamePlay.EventBus.Info;
 using GamePlay.Map.MapGrid;
 using General;
 using General.Pool.System;

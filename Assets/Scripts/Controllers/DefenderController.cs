@@ -1,14 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using DefaultNamespace;
-using Defenders;
+﻿using System.Collections.Generic;
+using GamePlay;
 using GamePlay.Areas;
+using GamePlay.Defenders;
+using GamePlay.Enemies;
+using GamePlay.EventBus;
+using GamePlay.EventBus.Info;
+using GamePlay.Map.MapGrid;
 using General;
 using General.Pool.System;
 using UnityEngine;
-using UnityEngine.Serialization;
 
-namespace GamePlay.Map.MapGrid
+namespace Controllers
 {
     public class DefenderController : MonoBehaviour, IDefenderController
     {
@@ -53,7 +55,7 @@ namespace GamePlay.Map.MapGrid
             InvokeRemainingItems();
         }
 
-        public void HandleEnemyAreaEnter(GameArea area,Transform enemy)
+        public void HandleEnemyAreaEnter(GameArea area,IEnemy enemy)
         {
             TryUnTrackEnemy(area,enemy);
             TryTrackEnemy(area,enemy);
@@ -90,18 +92,18 @@ namespace GamePlay.Map.MapGrid
             _defenderInRangeAreaDict.Add(defenceItem,inRangeAreas);
         }
 
-        private void TryUnTrackEnemy(GameArea area,Transform enemyTransform)
+        private void TryUnTrackEnemy(GameArea area,IEnemy enemy)
         {
             foreach (var (defender, inRangeAres) in _defenderInRangeAreaDict)
             {
                 if (!inRangeAres.Contains(area))
                 {
-                    defender.RemoveTarget(enemyTransform);
+                    defender.RemoveTarget(enemy);
                 }
             }
         }
 
-        private void TryTrackEnemy(GameArea area, Transform enemy)
+        private void TryTrackEnemy(GameArea area, IEnemy enemy)
         {
             var isInAttackRange = IsInAttackRange(area);
             if (isInAttackRange)
@@ -114,7 +116,7 @@ namespace GamePlay.Map.MapGrid
             }
         }
         
-        public void UnTrackEnemy(Transform enemyTransform)
+        public void UnTrackEnemy(IEnemy enemyTransform)
         {
             foreach (var defenceItem in _defenders)
             {

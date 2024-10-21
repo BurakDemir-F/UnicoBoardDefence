@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Defenders;
-using Enemies;
+using GamePlay.Defenders;
+using GamePlay.Enemies;
 using General;
 using UnityEngine;
 using UnityEngine.Serialization;

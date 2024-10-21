@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
-using DefaultNamespace;
-using GamePlay;
 using GamePlay.Areas;
-using GamePlay.Map.MapGrid;
+using GamePlay.EventBus;
+using GamePlay.EventBus.Info;
 using General;
 using UnityEngine;
 using UnityEngine.UI;
 using Utilities;
 
-namespace Defenders.UI
+namespace GamePlay.Defenders.UI
 {
     public class DefenceItemSelectionUI : MonoBehaviour
     {
@@ -114,18 +113,6 @@ namespace Defenders.UI
                 ui.UpdateUI(defenderType,count,defenderSprite);
                 index++;
             }
-        }
-    }
-
-    public struct DefenceItemSelectedEventInfo : IEventInfo
-    {
-        public DefenderType DefenderType { get; private set; }
-        public DefenderArea DefenderArea { get; private set; }
-
-        public DefenceItemSelectedEventInfo(DefenderType defenderType, DefenderArea area)
-        {
-            DefenderType = defenderType;
-            DefenderArea = area;
         }
     }
 }

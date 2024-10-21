@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using GamePlay.Areas;
+using GamePlay.Areas.Trigger;
 using GamePlay.Map.MapGrid;
 using General;
 using General.GridSystem;
@@ -67,35 +68,6 @@ namespace GamePlay.Map
         private void OnAreaTriggerExit(ITriggerInfo info)
         {
             AreaTriggerExited?.Invoke(info);
-        }
-        
-        public bool TryGetVisiblePosition(DefenderArea area,out Vector3 visiblePos)
-        {
-            var xPos = area.XPos;
-            var mapWidth = Grid.GetDimensions().x;
-            var isOnLeftSide = xPos % mapWidth == 0; 
-            if (isOnLeftSide)
-            {
-                if(Grid.TryGetNextCell(area,Direction.Right,out var rightCell))
-                {
-                    visiblePos = ((AreaBase)rightCell).CenterPosition;
-                    return true;
-                }
-            }
-
-            var isOnRightSide = xPos % mapWidth - 1 == 0; 
-            if (isOnRightSide)
-            {
-                if(Grid.TryGetNextCell(area,Direction.Left,out var leftCell))
-                {
-                    visiblePos =  ((AreaBase)leftCell).CenterPosition;
-                    return true;
-                }
-            }
-            
-            //should be already visible
-            visiblePos = default;
-            return false;
         }
 
         public IEnumerator<AreaBase> GetEnumerator()

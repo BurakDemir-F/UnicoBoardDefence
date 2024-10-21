@@ -1,4 +1,4 @@
-﻿namespace GamePlay.Areas
+﻿namespace GamePlay.Areas.Trigger
 {
     public struct TriggerInfo : ITriggerInfo
     {

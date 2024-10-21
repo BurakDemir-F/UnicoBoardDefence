@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using GamePlay.Enemies;
 using General.Pool.System;
 using UnityEngine;
-using Utilities;
 
-namespace Defenders
+namespace GamePlay.Defenders.Weapon
 {
     public class Weapon : MonoBehaviour
     {
         [SerializeField] private Transform _attackStart;
-        private List<Transform> _targets = new();
+        private List<IEnemy> _targets = new();
         private WeaponData _weaponData;
         private AttackInfo _attackInfo;
         private IPoolCollection _poolCollection;
@@ -22,12 +20,12 @@ namespace Defenders
             _attackInfo.Reset();
         }
 
-        public void AddTarget(Transform target)
+        public void AddTarget(IEnemy target)
         {
             HandleNewTarget(target);
         }
 
-        public void RemoveTarget(Transform target)
+        public void RemoveTarget(IEnemy target)
         {
             HandleTargetRemove(target);
         }
@@ -38,12 +36,12 @@ namespace Defenders
             _targets.Clear();
         }
 
-        public bool HasTarget(Transform target)
+        public bool HasTarget(IEnemy target)
         {
             return _targets.Contains(target);
         }
 
-        private void HandleNewTarget(Transform target)
+        private void HandleNewTarget(IEnemy target)
         {
             if (!_attackInfo.IsAttacking)
             {
@@ -54,13 +52,18 @@ namespace Defenders
             _targets.Add(target);
         }
 
-        private void HandleTargetRemove(Transform target)
+        private void HandleTargetRemove(IEnemy target)
         {
             _targets.Remove(target);
             if (_targets.Count == 0)
             {
-                _attackInfo.Reset();
+                _attackInfo.Refresh();
                 return;
+            }
+
+            if (_targets.Count > 0 || target == _attackInfo.CurrentTarget)
+            {
+                _attackInfo.Refresh();
             }
 
             var latestTarget = _targets[^1];
@@ -81,7 +84,7 @@ namespace Defenders
                 var bullet = _poolCollection.Get<BulletBase>(_weaponData.BulletKey);
                 var startPos = _attackStart.position;
                 bullet.Go.transform.position = startPos;
-                var bulletTarget = _attackInfo.CurrentTarget;
+                var bulletTarget = _attackInfo.CurrentTarget.Transform;
                 bullet.Fire(bulletTarget,_weaponData.BulletSpeed);
                 bullet.Hit += OnBulletHit;
                 bullet.DestinationReached += OnBulletDestinationReached;
@@ -107,7 +110,7 @@ namespace Defenders
         private struct AttackInfo
         {
             public bool IsAttacking;
-            public Transform CurrentTarget;
+            public IEnemy CurrentTarget;
             public float ElapsedTime;
             public float LatestAttackTime;
 
@@ -138,7 +141,7 @@ namespace Defenders
                 foreach (var target in _targets)
                 {
                     Gizmos.color = Color.green;
-                    Gizmos.DrawSphere(target.position, .1f);
+                    Gizmos.DrawSphere(target.Transform.position, .1f);
                 }
             }
         }

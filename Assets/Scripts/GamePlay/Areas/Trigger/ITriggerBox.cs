@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GamePlay.Areas
+namespace GamePlay.Areas.Trigger
 {
     public interface ITriggerBox
     {

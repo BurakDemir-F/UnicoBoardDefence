@@ -1,11 +1,11 @@
-﻿using GamePlay;
-using GamePlay.Areas;
+﻿using GamePlay.Areas;
+using GamePlay.EventBus;
 using General;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using Utilities;
 
-namespace Defenders.UI
+namespace GamePlay.Defenders.UI
 {
     public class DefenceItemUIController : MonoBehaviour,IPointerDownHandler
     {

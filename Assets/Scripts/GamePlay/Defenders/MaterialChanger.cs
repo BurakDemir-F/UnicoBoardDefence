@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-namespace Defenders
+namespace GamePlay.Defenders
 {
     public class MaterialChanger : MonoBehaviour,IMaterialChanger
     {
