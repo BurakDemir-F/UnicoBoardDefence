@@ -30,6 +30,12 @@ namespace Controllers
             _eventBus.UnSubscribe(GamePlayEvent.LevelEnd,OnLevelEnd);
         }
 
+        private void ShowPlayGame()
+        {
+            _playUI.Activate();
+            _playUI.ShowLevel(_levelController.GetLevelForDisplay());
+        }
+
         private void StartLevel()
         {
             _playUI.Deactivate();
@@ -39,12 +45,6 @@ namespace Controllers
                 new LevelSelectedEventInfo(currentLevel,
                     levelData.DefenderEnemyCounts[currentLevel]));
             _eventBus.Publish(GamePlayEvent.LevelStarted,null);
-        }
-
-        private void ShowPlayGame()
-        {
-            _playUI.Activate();
-            _playUI.ShowLevel(_levelController.GetLevelForDisplay());
         }
 
         private void OnLevelEnd(IEventInfo eventInfo)

@@ -25,6 +25,8 @@ namespace GamePlay.Map
 
         public event Action MapInitialized;
 
+        private bool _isInitialized;
+        
         public void InitializeMap(IGrid grid,
             List<SpawnArea> spawnAreas,
             List<NonDefenderArea> emptyAreas,
@@ -38,6 +40,7 @@ namespace GamePlay.Map
             PlayerLooseAreas = playerLooseAreas;
             _triggerBoxes = new HashSet<ITriggerBox>();
             MapInitialized?.Invoke();
+            _isInitialized = true;
         }
 
         public void AddTriggerBox(ITriggerBox triggerBox)
@@ -52,6 +55,8 @@ namespace GamePlay.Map
 
         public void RemoveTriggerBox(ITriggerBox triggerBox)
         {
+            if (!_isInitialized)
+                return;
             var isRemoved = _triggerBoxes.Remove(triggerBox);
             if (isRemoved)
             {

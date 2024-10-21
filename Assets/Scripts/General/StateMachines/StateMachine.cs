@@ -97,11 +97,11 @@ namespace General.StateMachines
 
         private void OnStateCompleted(IState state)
         {
-            $"State completed: {state}".PrintColored(Color.blue);
+            $"State completed: {state}".PrintColored(Color.green);
             
             if (_currentState != state)
             {
-                "Something wrong here, unstarted state looking like finished".PrintColored(Color.red);
+                $"Something wrong here, unstarted state looking like finished current state: {_currentState}, finished state:{state}".PrintColored(Color.red);
                 return;
             }
 

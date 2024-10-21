@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using GamePlay.Areas;
 using GamePlay.Defenders;
@@ -6,25 +7,29 @@ using GamePlay.EventBus;
 using GamePlay.Map.MapGrid;
 using General;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Controllers
 {
     public class AreaController : MonoBehaviour,IAreaController
     {
-        [SerializeField] private GamePlayEventBus _eventBus;
+        [SerializeField] private GamePlayEventBus _gamePlayActions;
+        [SerializeField] private ItemActionsEventBus _itemActions;
+        [SerializeField] private float _areaPickDurationByItem = 0.05f;
         private IMap _map;
         private HashSet<DefenderArea> _placedAreas = new();
 
+        public event Action AllAreasPicked;
         private void Awake()
         {
-            _eventBus.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
-            _eventBus.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+            _gamePlayActions.Subscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _gamePlayActions.Subscribe(GamePlayEvent.LevelFail,OnLevelEnd);
         }
 
         private void OnDestroy()
         {
-            _eventBus.UnSubscribe(GamePlayEvent.LevelWin,OnLevelEnd);
-            _eventBus.UnSubscribe(GamePlayEvent.LevelFail,OnLevelEnd);
+            _gamePlayActions.UnSubscribe(GamePlayEvent.LevelWin,OnLevelEnd);
+            _gamePlayActions.UnSubscribe(GamePlayEvent.LevelFail,OnLevelEnd);
         }
 
         public void Initialize(IMap map)
@@ -108,12 +113,14 @@ namespace Controllers
 
         private IEnumerator ReturnToPoolCor()
         {
-            var wait = new WaitForSeconds(0.05f);
+            var wait = new WaitForSeconds(_areaPickDurationByItem);
             foreach (var areaBase in _map)
             {
                 areaBase.ReturnToPool();
                 yield return wait;
             }
+
+            AllAreasPicked?.Invoke();
         }
     }
 }

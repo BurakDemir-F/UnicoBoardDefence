@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Controllers
 {
-    public class GamePlayController : MonoBehaviour
+    public class GameStateInitializer : MonoBehaviour
     {
         [SerializeField] private List<GameState> _gamePlayStates;
         [SerializeField] private GameState _startState;

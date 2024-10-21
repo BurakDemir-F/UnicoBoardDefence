@@ -18,6 +18,7 @@ namespace GamePlay.GamePlayStates.LevelStart
         [SerializeField] private MapController _mapController;
         [SerializeField] private MasterPool _poolCollection;
         [SerializeField] private EnemyController _enemyController;
+        [SerializeField] private InteractionController _interactionController;
         
         private Action<IState> _onStateCompleted;
         
@@ -26,6 +27,7 @@ namespace GamePlay.GamePlayStates.LevelStart
             var mapData = _dataProvider.GetMapData();
             _mapBuilder.BuildMap(mapData, OnMapBuild);
             _onStateCompleted = onStateCompleted;
+            _interactionController.DisableInteraction();
         }
         
         private void OnMapBuild(IMap map)
@@ -35,6 +37,7 @@ namespace GamePlay.GamePlayStates.LevelStart
             _mapController.Initialize(map,_poolCollection);
             _enemyController.StartEnemySpawn();
             _eventBus.Publish(GamePlayEvent.MapCreated,new MapCreatedEventInfo(map));
+            _interactionController.EnableInteraction();
             _onStateCompleted?.Invoke(this);
         }
     }

@@ -53,7 +53,7 @@ namespace GamePlay
             return isStatePlaying;
         }
 
-        private void OnConditionMet()
+        protected virtual void OnConditionMet()
         {
             ConditionMet?.Invoke(this);
         }

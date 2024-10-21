@@ -46,6 +46,9 @@ namespace Controllers
 
         public void SetLevel(int level)
         {
+            if (level < 0)
+                level = 0;
+            
             var totalLevelCount = _levels.LevelData.DefenderEnemyCounts.Count;
             if (level > totalLevelCount - 1)
             {
